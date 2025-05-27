@@ -1,0 +1,18 @@
+name: flutter_dsl
+description: "A declarative UI helper extension package for Flutter, making your widget tree more expressive and readable."
+version: 0.0.1
+homepage: https://github.com/hardy716/flutter_dsl
+repository: https://github.com/hardy716/flutter_dsl
+issue_tracker: https://github.com/hardy716/flutter_dsl/issues
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
