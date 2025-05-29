@@ -1,6 +1,6 @@
 # flutter_dsl
 
-> A declarative UI helper extension package for Flutter, making your widget tree more expressive and readable.
+> A declarative UI extension toolkit for Flutter, making your widget tree more expressive, readable, and concise.
 
 [![pub package](https://img.shields.io/pub/v/flutter_dsl.svg)](https://pub.dev/packages/flutter_dsl)
 
@@ -8,31 +8,32 @@
 
 ## ✨ Features
 
-- ✅ Widget extension methods for spacing, alignment, padding, gestures, etc.
-- ✅ String extension for quick `Text()` widget creation with styles
-- ✅ Conditional rendering using `.visible()` and `.ifTrue()`
-- ✅ Declarative spacing helper: `Spacing(h: 12)`, `Spacing.square(24)`
-- ✅ Designed to be expressive, chainable, and Flutter-conventional
+- 🔹 Fluent widget extension methods: `.paddingAll()`, `.rounded()`, `.onTap()`, etc.
+- 🔹 String-based `Text()` creation: `'Hello'.text(...)`
+- 🔹 Theme-aware text styles: `'Title'.titleMedium(context)`
+- 🔹 Conditional rendering: `.visible()`, `.ifTrue()`, `.ifFalse()`
+- 🔹 Declarative spacing: `Spacing.square(16)`, `.gapBottom(12)`
+- 🔹 Designed to be **chainable**, **intuitive**, and **Flutter-conventional**
 
 ---
 
 ## 📦 Installation
 
-Add this to your `pubspec.yaml`:
+Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
   flutter_dsl: ^0.1.0
 ```
 
-Then import:
+Then import it in your Dart files:
 ```dart
 import 'package:flutter_dsl/flutter_dsl.dart';
 ```
 
-🚀 Quick Start
+## 🚀 Quick Usage
 
-🔹 Widget Extensions
+🔹 Widget DSL
 ```dart
 Text('Login')
   .paddingAll(16)
@@ -54,19 +55,43 @@ Text('Login')
 
 🔹 Conditional Rendering
 ```dart
-'Error occurred'.text().visible(hasError);
+'Error occurred'
+  .text()
+  .visible(hasError);
 
-'Edit'.text().ifTrue(isEditable, orElse: () => Icon(Icons.lock));
+'Edit'
+  .text()
+  .ifTrue(isEditable, orElse: () => Icon(Icons.lock));
 ```
 
 🔹 Spacing DSL
 ```dart
-Spacing(w: 12)         // Horizontal spacing
-Spacing(h: 16)         // Vertical spacing
-Spacing.square(24)     // Square spacer
-Spacing.none()         // Empty SizedBox
+Spacing(w: 12);             // Horizontal spacing
+Spacing(h: 16);             // Vertical spacing
+Spacing.square(24);         // Equal width & height
+Spacing.none();             // Empty SizedBox
 ```
 
-🧪 Example
+## 🧪 Example
 
-See [example/lib/main.dart](https://github.com/hardy716/flutter_dsl/tree/example/lib/main) for a full working demo.
+Check out the full working demo in:
+📄 [example/lib/main.dart](https://github.com/hardy716/flutter_dsl/blob/master/example/lib/main.dart)
+
+## 📌 Why flutter_dsl?
+
+Flutter UI can be expressive, but often verbose.
+This package aims to:
+Reduce nesting and boilerplate
+Make UI code more readable
+Provide reusable and declarative patterns
+Stay consistent with Flutter's philosophy
+
+## 🤝 Contributing
+
+We welcome PRs and issues!
+Please open an issue or fork and create a PR.
+
+## 📄 License
+
+MIT License
+© 2025 HARDY

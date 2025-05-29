@@ -40,52 +40,62 @@ class _DSLExampleHomePageState extends State<DSLExampleHomePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Text DSL
-            'Welcome to DSL UI'
+            // Title
+            'Welcome to flutter_dsl'
                 .headlineMedium(context)
-                .paddingAll(16),
+                .paddingAll(16)
+                .gapBottom(16),
 
-            // Spacing
-            Spacing.square(16),
-
-            // Conditional rendering
-            'You are logged in'
+            // Logged in message
+            '✅ You are logged in'
                 .text(fontSize: 16, color: Colors.green)
-                .visible(isLoggedIn),
+                .ifTrue(isLoggedIn)
+                .gapBottom(8),
 
-            'An error occurred'
-                .text(color: Colors.red)
-                .visible(hasError),
+            // Error message
+            '⚠️ An error occurred'
+                .text(fontSize: 16, color: Colors.red)
+                .ifTrue(hasError)
+                .gapBottom(16),
 
-            Spacing(h: 12),
+            // Toggle login button
+            _dslButton(
+              text: isLoggedIn ? 'Logout' : 'Login',
+              color: Colors.blue,
+              onTap: () {
+                setState(() {
+                  isLoggedIn = !isLoggedIn;
+                  hasError = false;
+                });
+              },
+            ).gapBottom(12),
 
-            'Toggle Login'
-                .text(fontSize: 16)
-                .paddingAll(12)
-                .backgroundColor(Colors.blue)
-                .rounded(8)
-                .onTap(() {
-              setState(() {
-                isLoggedIn = !isLoggedIn;
-                hasError = false;
-              });
-            }),
-
-            Spacing(h: 12),
-
-            'Trigger Error'
-                .text()
-                .paddingAll(12)
-                .backgroundColor(Colors.red)
-                .rounded(8)
-                .onTap(() {
-              setState(() {
-                hasError = !hasError;
-              });
-            }),
+            // Trigger error button
+            _dslButton(
+              text: hasError ? 'Clear Error' : 'Trigger Error',
+              color: Colors.red,
+              onTap: () {
+                setState(() {
+                  hasError = !hasError;
+                });
+              },
+            ),
           ],
         ),
       ),
     );
+  }
+
+  Widget _dslButton({
+    required String text,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return text
+        .text(color: Colors.white)
+        .paddingAll(12)
+        .backgroundColor(color)
+        .rounded(8)
+        .onTap(onTap);
   }
 }
