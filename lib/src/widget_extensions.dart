@@ -75,6 +75,21 @@ extension WidgetExtensions on Widget {
   Widget align(Alignment alignment) =>
       Align(alignment: alignment, child: this);
 
+  /// Wraps this widget with an [Expanded] widget.
+  ///
+  /// ```dart
+  /// Text('Expanded').expanded()
+  /// ```
+  Widget expanded() => Expanded(child: this);
+
+  /// Wraps this widget with a [Flexible] widget using the given [flex] and [fit].
+  ///
+  /// ```dart
+  /// Text('Flexible').flex(2)
+  /// ```
+  Widget flex(int flex, {FlexFit fit = FlexFit.loose}) =>
+      Flexible(flex: flex, fit: fit, child: this);
+
   /// Clips the widget with a rounded [BorderRadius.circular].
   ///
   /// ```dart

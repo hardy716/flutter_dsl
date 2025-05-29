@@ -1,3 +1,15 @@
+## [0.1.2]
+
+### Documentation
+
+- `expanded()` and `flex(n)` to `WidgetExtensions`
+    - Easily wrap widgets in `Expanded` or `Flexible`
+    - Example: `'Content'.text().expanded()` or `.flex(2)`
+
+- `row()` and `column()` to `Iterable<Widget>` via `IterableWidgetExtensions`
+    - Convert list of widgets into `Row` or `Column` with DSL-style
+    - Example: `[A, B, C].row()` or `.column(...)`
+
 ## [0.1.1]
 
 ### Documentation

@@ -21,7 +21,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_dsl: ^0.1.0
+  flutter_dsl: ^0.1.2
 ```
 
 Then import it in your Dart files:
@@ -39,6 +39,25 @@ Text('Login')
   .backgroundColor(Colors.blue)
   .center()
   .onTap(() => print('Tapped'));
+```
+
+🔹 Iterable Widget DSL
+```dart
+[
+  Icon(Icons.star),
+  'Favorite'.text(),
+].row(spacing: 8);
+
+[
+  'Welcome'.headlineMedium(context),
+  'Please log in'.text(),
+].column(crossAxisAlignment: CrossAxisAlignment.start, spacing: 16);
+
+[
+  'A'.text().backgroundColor(Colors.red),
+  'B'.text().backgroundColor(Colors.green).expanded(),
+  'C'.text().backgroundColor(Colors.blue).flex(2),
+].row();
 ```
 
 🔹 String → Text DSL
