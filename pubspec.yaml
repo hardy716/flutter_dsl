@@ -5,9 +5,6 @@ homepage: https://github.com/hardy716/flutter_dsl
 repository: https://github.com/hardy716/flutter_dsl
 issue_tracker: https://github.com/hardy716/flutter_dsl/issues
 
-authors:
-  - HARDY <dev.hardy716@gmail.com>
-
 topics:
   - dsl
   - ui
