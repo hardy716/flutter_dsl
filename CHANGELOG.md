@@ -1,4 +1,4 @@
-## [0.1.1] - 2025-05-29
+## [0.1.1]
 
 ### Documentation
 
@@ -13,9 +13,7 @@
     - Added badge and link to full example
     - Highlighted motivation and future roadmap
 
----
-
-## [0.1.0] - 2025-05-27
+## [0.1.0]
 
 ### Initial Release
 

@@ -1,8 +1,8 @@
+[![pub package](https://img.shields.io/pub/v/flutter_dsl.svg)](https://pub.dev/packages/flutter_dsl)
+
 # flutter_dsl
 
-> A declarative UI extension toolkit for Flutter, making your widget tree more expressive, readable, and concise.
-
-[![pub package](https://img.shields.io/pub/v/flutter_dsl.svg)](https://pub.dev/packages/flutter_dsl)
+A declarative UI extension toolkit for Flutter, making your widget tree more expressive, readable, and concise.
 
 ---
 
@@ -14,8 +14,6 @@
 - 🔹 Conditional rendering: `.visible()`, `.ifTrue()`, `.ifFalse()`
 - 🔹 Declarative spacing: `Spacing.square(16)`, `.gapBottom(12)`
 - 🔹 Designed to be **chainable**, **intuitive**, and **Flutter-conventional**
-
----
 
 ## 📦 Installation
 
