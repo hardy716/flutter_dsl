@@ -21,7 +21,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_dsl: ^0.1.2+1
+  flutter_dsl: ^0.1.2+2
 ```
 
 Then import it in your Dart files:

@@ -1,6 +1,13 @@
-## [0.1.2+1]
+## [0.1.2+2]
 
 ### Documentation
+
+- Fixed dartdoc issues related to angle brackets (`<T>`, `<Widget>`)
+- Applied `dart format .` to match Dart style guidelines and improve pub.dev score
+
+## [0.1.2+1]
+
+### Features
 
 - `expanded()` and `flex(n)` to `WidgetExtensions`
     - Easily wrap widgets in `Expanded` or `Flexible`

@@ -17,7 +17,8 @@ extension WidgetExtensions on Widget {
   /// ```
   Widget paddingSymmetric({double horizontal = 0, double vertical = 0}) =>
       Padding(
-        padding: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
+        padding:
+            EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
         child: this,
       );
 
@@ -33,7 +34,8 @@ extension WidgetExtensions on Widget {
     double bottom = 0,
   }) =>
       Padding(
-        padding: EdgeInsets.only(left: left, top: top, right: right, bottom: bottom),
+        padding:
+            EdgeInsets.only(left: left, top: top, right: right, bottom: bottom),
         child: this,
       );
 
@@ -44,7 +46,8 @@ extension WidgetExtensions on Widget {
   /// Adds symmetric horizontal and vertical margin using a wrapping [Container].
   Widget marginSymmetric({double horizontal = 0, double vertical = 0}) =>
       Container(
-        margin: EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
+        margin:
+            EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
         child: this,
       );
 
@@ -56,7 +59,8 @@ extension WidgetExtensions on Widget {
     double bottom = 0,
   }) =>
       Container(
-        margin: EdgeInsets.only(left: left, top: top, right: right, bottom: bottom),
+        margin:
+            EdgeInsets.only(left: left, top: top, right: right, bottom: bottom),
         child: this,
       );
 
@@ -72,8 +76,7 @@ extension WidgetExtensions on Widget {
   /// ```dart
   /// Text('Right Aligned').align(Alignment.centerRight);
   /// ```
-  Widget align(Alignment alignment) =>
-      Align(alignment: alignment, child: this);
+  Widget align(Alignment alignment) => Align(alignment: alignment, child: this);
 
   /// Wraps this widget with an [Expanded] widget.
   ///
@@ -99,14 +102,14 @@ extension WidgetExtensions on Widget {
       ClipRRect(borderRadius: BorderRadius.circular(radius), child: this);
 
   /// Applies a background color to the widget using a wrapping [Container].
-  Widget backgroundColor(Color color) =>
-      Container(color: color, child: this);
+  Widget backgroundColor(Color color) => Container(color: color, child: this);
 
   /// Wraps the widget in a [GestureDetector] to handle tap events.
   ///
   /// ```dart
   /// Text('Tap me').onTap(() => print('Tapped!'));
   /// ```
-  Widget onTap(VoidCallback onTap, {HitTestBehavior behavior = HitTestBehavior.opaque}) =>
+  Widget onTap(VoidCallback onTap,
+          {HitTestBehavior behavior = HitTestBehavior.opaque}) =>
       GestureDetector(onTap: onTap, behavior: behavior, child: this);
 }

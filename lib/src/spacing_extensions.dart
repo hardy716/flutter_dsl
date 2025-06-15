@@ -14,12 +14,12 @@ extension SpacingExtensions on Widget {
   /// Icon(Icons.star).gapRight(8);
   /// ```
   Widget gapRight(double width) => Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      this,
-      SizedBox(width: width),
-    ],
-  );
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          this,
+          SizedBox(width: width),
+        ],
+      );
 
   /// Adds horizontal spacing to the **left** of the widget using a [Row].
   ///
@@ -27,12 +27,12 @@ extension SpacingExtensions on Widget {
   /// Icon(Icons.star).gapLeft(8);
   /// ```
   Widget gapLeft(double width) => Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      SizedBox(width: width),
-      this,
-    ],
-  );
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(width: width),
+          this,
+        ],
+      );
 
   /// Adds vertical spacing to the **bottom** of the widget using a [Column].
   ///
@@ -40,12 +40,12 @@ extension SpacingExtensions on Widget {
   /// Text('Hello').gapBottom(16);
   /// ```
   Widget gapBottom(double height) => Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      this,
-      SizedBox(height: height),
-    ],
-  );
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          this,
+          SizedBox(height: height),
+        ],
+      );
 
   /// Adds vertical spacing to the **top** of the widget using a [Column].
   ///
@@ -53,12 +53,12 @@ extension SpacingExtensions on Widget {
   /// Text('Hello').gapTop(16);
   /// ```
   Widget gapTop(double height) => Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      SizedBox(height: height),
-      this,
-    ],
-  );
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: height),
+          this,
+        ],
+      );
 }
 
 /// A reusable spacing widget that provides horizontal and/or vertical gaps.
