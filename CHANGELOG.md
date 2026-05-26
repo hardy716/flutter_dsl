@@ -1,3 +1,15 @@
+## [1.0.0+3]
+
+### Changed
+
+- Example app rewritten as a 5-tab Core API showcase
+  - Tabs: **Responsive** / **Styling** / **Text** / **Conditional** / **Layout**
+  - Each demo card pairs a live widget with a copy-paste-friendly code snippet (`SelectableText` in a monospace block)
+  - Interactive `Switch` / `SegmentedButton` controls drive the transform-based helpers (`.onTrue` / `.onFalse` / `.when` / `WhenWidget`) so users can see state transitions in real time
+  - Live `ScreenSize` chip in the `AppBar` (icon + color per bucket) — proves responsive helpers are tracking the actual width
+  - Top-of-tab hint banner explains how to drive the responsive demos (resize the window)
+  - Demonstrates every Core API surface from `README.md`'s table: `ResponsiveBuilder`, `Responsive.value/when/isMobile/isTablet/isDesktop`, `.onMobile/.onTablet/.onDesktop`, `.hideOnMobile/Tablet/Desktop`, `.responsive`, `ResponsiveScope.dataOf`, marker annotations, all 12 theme text tokens, styling chains, `WhenWidget<T>`, sizing extensions, `Iterable<Widget>.row/.column`, `.expanded/.flex`, `Spacing`
+
 ## [1.0.0+2]
 
 ### Added

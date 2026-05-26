@@ -161,24 +161,24 @@ WhenWidget<Status>(
 );
 ```
 
-### Kept from 0.1.x
+### Kept from 0.x.x
 
 `paddingAll/paddingSymmetric/paddingOnly`, `center/align/expanded/flex`, `rounded`, `backgroundColor` (now `ColoredBox` internally), `onTap`, theme-aware `Text` tokens (`headlineLarge` … `labelSmall`), `Spacing` widget, `Iterable<Widget>.row/column`, and `.visible(cond)` are all kept.
 
 ---
 
-## 🔁 Migration from 0.1.x
+## 🔁 Migration Guide
 
-| 0.1.x | 1.0.0 |
-|---|---|
-| `widget.marginAll(8)` | `widget.paddingAll(8)` or a `Spacing` in the parent |
+| 0.x.x | 1.0.0 |
+|----------------------------------------------|---|
+| `widget.marginAll(8)`                        | `widget.paddingAll(8)` or a `Spacing` in the parent |
 | `'Hi'.text(fontSize: 18, color: Colors.red)` | `'Hi'.bodyLarge(context).fontSize(18).textColor(Colors.red)` |
-| `'Hi'.withStyle(myStyle)` | `Text('Hi', style: myStyle)` |
-| `iconA.gapRight(8)` | `[iconA, ...].row(spacing: 8)` |
-| `widget.ifTrue(cond)` (visibility) | `widget.visible(cond)` |
-| `widget.ifTrue(cond, orElse: () => other)` | `cond ? widget : other` or `WhenWidget<bool>(value: cond, cases: {true: () => widget, false: () => other})` |
-| `widget.ifFalse(cond)` | `widget.visible(!cond)` |
-| (transform on condition) | `widget.onTrue(cond, (w) => w.backgroundColor(Colors.yellow))` |
+| `'Hi'.withStyle(myStyle)`                    | `Text('Hi', style: myStyle)` |
+| `iconA.gapRight(8)`                          | `[iconA, ...].row(spacing: 8)` |
+| `widget.ifTrue(cond)` (visibility)           | `widget.visible(cond)` |
+| `widget.ifTrue(cond, orElse: () => other)`   | `cond ? widget : other` or `WhenWidget<bool>(value: cond, cases: {true: () => widget, false: () => other})` |
+| `widget.ifFalse(cond)`                       | `widget.visible(!cond)` |
+| (transform on condition)                     | `widget.onTrue(cond, (w) => w.backgroundColor(Colors.yellow))` |
 
 Deprecated 0.1.x APIs are still functional and marked with `@Deprecated`. They will be removed in **v2.0**.
 
