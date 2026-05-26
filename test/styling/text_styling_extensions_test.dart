@@ -35,6 +35,30 @@ void main() {
     expect(u.style?.decoration, TextDecoration.underline);
   });
 
+  test('.fontWeight sets fontWeight and preserves other style fields', () {
+    final t = const Text(
+      'x',
+      style: TextStyle(fontSize: 14, color: Colors.red),
+    ).fontWeight(FontWeight.w800);
+
+    expect(t.style?.fontWeight, FontWeight.w800);
+    expect(t.style?.fontSize, 14);
+    expect(t.style?.color, Colors.red);
+  });
+
+  test('.letterSpacing sets letterSpacing and preserves other fields', () {
+    final t = const Text('x', style: TextStyle(fontSize: 14))
+        .letterSpacing(1.5);
+    expect(t.style?.letterSpacing, 1.5);
+    expect(t.style?.fontSize, 14);
+  });
+
+  test('.lineHeight sets TextStyle.height', () {
+    final t = const Text('x', style: TextStyle(fontSize: 14)).lineHeight(1.8);
+    expect(t.style?.height, 1.8);
+    expect(t.style?.fontSize, 14);
+  });
+
   test('preserves textAlign / maxLines / overflow', () {
     final t = const Text(
       'x',
