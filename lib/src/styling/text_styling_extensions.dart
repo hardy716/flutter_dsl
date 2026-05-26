@@ -25,8 +25,7 @@ extension TextStylingExtensions on Text {
   Text textColor(Color value) => _merge(TextStyle(color: value));
 
   /// Sets letter spacing, merging onto any existing style.
-  Text letterSpacing(double value) =>
-      _merge(TextStyle(letterSpacing: value));
+  Text letterSpacing(double value) => _merge(TextStyle(letterSpacing: value));
 
   /// Sets the line height multiplier (`TextStyle.height`).
   Text lineHeight(double value) => _merge(TextStyle(height: value));

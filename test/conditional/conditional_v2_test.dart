@@ -4,8 +4,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   const original = SizedBox(key: Key('orig'));
-  ColoredBox wrap(Widget w) =>
-      ColoredBox(key: const Key('wrap'), color: const Color(0xFF000000), child: w);
+  ColoredBox wrap(Widget w) => ColoredBox(
+        key: const Key('wrap'),
+        color: const Color(0xFF000000),
+        child: w,
+      );
 
   test('.onTrue applies transform when true', () {
     final r = original.onTrue(true, wrap);
@@ -32,35 +35,39 @@ void main() {
     expect(r, isA<ColoredBox>());
   });
 
-  test('.when returns original when all keys are false', () {
-    final r = original.when({false: wrap, false: wrap});
+  test('.when returns original when no key is true', () {
+    final r = original.when({false: wrap});
     expect(r, same(original));
   });
 
   testWidgets('WhenWidget renders the matching builder', (tester) async {
-    await tester.pumpWidget(Directionality(
-      textDirection: TextDirection.ltr,
-      child: WhenWidget<int>(
-        value: 2,
-        cases: {
-          1: () => const SizedBox(key: Key('one')),
-          2: () => const SizedBox(key: Key('two')),
-        },
+    await tester.pumpWidget(
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: WhenWidget<int>(
+          value: 2,
+          cases: {
+            1: () => const SizedBox(key: Key('one')),
+            2: () => const SizedBox(key: Key('two')),
+          },
+        ),
       ),
-    ));
+    );
     expect(find.byKey(const Key('two')), findsOneWidget);
     expect(find.byKey(const Key('one')), findsNothing);
   });
 
   testWidgets('WhenWidget falls back to orElse', (tester) async {
-    await tester.pumpWidget(Directionality(
-      textDirection: TextDirection.ltr,
-      child: WhenWidget<int>(
-        value: 99,
-        cases: {1: () => const SizedBox(key: Key('one'))},
-        orElse: () => const SizedBox(key: Key('fallback')),
+    await tester.pumpWidget(
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: WhenWidget<int>(
+          value: 99,
+          cases: {1: () => const SizedBox(key: Key('one'))},
+          orElse: () => const SizedBox(key: Key('fallback')),
+        ),
       ),
-    ));
+    );
     expect(find.byKey(const Key('fallback')), findsOneWidget);
   });
 }

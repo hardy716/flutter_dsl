@@ -101,11 +101,15 @@ class _DashboardBodyState extends State<_DashboardBody> {
           'Hide me on mobile, scale me up on desktop.'
               .bodyMedium(context)
               .paddingAll(16)
-              .backgroundColor(Theme.of(context).colorScheme.surfaceContainerHigh)
+              .backgroundColor(
+                Theme.of(context).colorScheme.surfaceContainerHigh,
+              )
               .rounded(12)
-              .onDesktop((w) => w.padding(
-                    const EdgeInsets.symmetric(horizontal: 48, vertical: 24),
-                  ))
+              .onDesktop(
+                (w) => w.padding(
+                  const EdgeInsets.symmetric(horizontal: 48, vertical: 24),
+                ),
+              )
               .hideOnMobile(),
 
           const Spacing(h: 24),
@@ -130,11 +134,9 @@ class _DashboardBodyState extends State<_DashboardBody> {
           WhenWidget<bool>(
             value: highlight,
             cases: {
-              true: () => 'Highlighted!'
-                  .titleMedium(context)
-                  .textColor(Colors.green),
-              false: () =>
-                  'Not highlighted'.titleMedium(context).italic(),
+              true: () =>
+                  'Highlighted!'.titleMedium(context).textColor(Colors.green),
+              false: () => 'Not highlighted'.titleMedium(context).italic(),
             },
           ),
         ].column(crossAxisAlignment: CrossAxisAlignment.start),

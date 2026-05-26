@@ -15,7 +15,8 @@ void main() {
   });
 
   test('.textColor merges color without dropping fontSize', () {
-    final t = const Text('x', style: TextStyle(fontSize: 14)).textColor(Colors.blue);
+    final t =
+        const Text('x', style: TextStyle(fontSize: 14)).textColor(Colors.blue);
     expect(t.style?.color, Colors.blue);
     expect(t.style?.fontSize, 14);
   });
@@ -47,7 +48,7 @@ void main() {
   });
 
   test('asserts on Text.rich', () {
-    final rich = Text.rich(const TextSpan(text: 'x'));
+    const rich = Text.rich(TextSpan(text: 'x'));
     expect(() => rich.fontSize(12), throwsA(isA<AssertionError>()));
   });
 }

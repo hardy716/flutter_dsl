@@ -13,8 +13,7 @@ void main() {
   });
 
   test('DesignSystemComponent stores name and category', () {
-    const d =
-        DesignSystemComponent(name: 'PrimaryButton', category: 'actions');
+    const d = DesignSystemComponent(name: 'PrimaryButton', category: 'actions');
     expect(d.name, 'PrimaryButton');
     expect(d.category, 'actions');
   });

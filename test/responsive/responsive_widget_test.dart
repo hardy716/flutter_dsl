@@ -15,7 +15,7 @@ class _Capture extends ResponsiveStatelessWidget {
 
 class _CaptureStateful extends ResponsiveStatefulWidget {
   final void Function(ScreenSize) onSize;
-  const _CaptureStateful({required this.onSize, super.breakpoints});
+  const _CaptureStateful({required this.onSize});
 
   @override
   State<_CaptureStateful> createState() => _CaptureStatefulState();
@@ -38,33 +38,39 @@ void main() {
   testWidgets('ResponsiveStatelessWidget auto-wraps ResponsiveScope',
       (tester) async {
     ScreenSize? observed;
-    await tester.pumpWidget(_wrap(
-      const Size(900, 600),
-      _Capture(onSize: (s) => observed = s),
-    ));
+    await tester.pumpWidget(
+      _wrap(
+        const Size(900, 600),
+        _Capture(onSize: (s) => observed = s),
+      ),
+    );
     expect(observed, ScreenSize.expanded);
   });
 
   testWidgets('ResponsiveStatelessWidget honors custom breakpoints',
       (tester) async {
     ScreenSize? observed;
-    await tester.pumpWidget(_wrap(
-      const Size(500, 800),
-      _Capture(
-        onSize: (s) => observed = s,
-        breakpoints: const [400, 800, 1200, 1600],
+    await tester.pumpWidget(
+      _wrap(
+        const Size(500, 800),
+        _Capture(
+          onSize: (s) => observed = s,
+          breakpoints: const [400, 800, 1200, 1600],
+        ),
       ),
-    ));
+    );
     expect(observed, ScreenSize.medium);
   });
 
   testWidgets('ResponsiveStatefulWidget auto-wraps ResponsiveScope',
       (tester) async {
     ScreenSize? observed;
-    await tester.pumpWidget(_wrap(
-      const Size(1300, 800),
-      _CaptureStateful(onSize: (s) => observed = s),
-    ));
+    await tester.pumpWidget(
+      _wrap(
+        const Size(1300, 800),
+        _CaptureStateful(onSize: (s) => observed = s),
+      ),
+    );
     expect(observed, ScreenSize.large);
   });
 }

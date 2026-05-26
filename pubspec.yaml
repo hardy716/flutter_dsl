@@ -1,16 +1,16 @@
 name: flutter_dsl
-description: "A declarative UI helper extension package for Flutter, making your widget tree more expressive and readable."
-version: 0.1.2+2
+description: "Annotation + extension based responsive layout and design-system-friendly DX toolkit for Flutter. No build_runner required."
+version: 1.0.0
 homepage: https://github.com/hardy716/flutter_dsl
 repository: https://github.com/hardy716/flutter_dsl
 issue_tracker: https://github.com/hardy716/flutter_dsl/issues
 
 topics:
   - dsl
-  - ui
-  - widget
+  - responsive
+  - design-system
   - extension
-  - flutter
+  - widget
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -24,3 +24,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^4.0.0

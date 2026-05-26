@@ -4,50 +4,72 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('Breakpoints.resolve (material3)', () {
     test('599 → compact', () {
-      expect(Breakpoints.resolve(599, Breakpoints.material3),
-          ScreenSize.compact);
+      expect(
+        Breakpoints.resolve(599, Breakpoints.material3),
+        ScreenSize.compact,
+      );
     });
     test('600 → medium', () {
-      expect(Breakpoints.resolve(600, Breakpoints.material3),
-          ScreenSize.medium);
+      expect(
+        Breakpoints.resolve(600, Breakpoints.material3),
+        ScreenSize.medium,
+      );
     });
     test('839 → medium', () {
-      expect(Breakpoints.resolve(839, Breakpoints.material3),
-          ScreenSize.medium);
+      expect(
+        Breakpoints.resolve(839, Breakpoints.material3),
+        ScreenSize.medium,
+      );
     });
     test('840 → expanded', () {
-      expect(Breakpoints.resolve(840, Breakpoints.material3),
-          ScreenSize.expanded);
+      expect(
+        Breakpoints.resolve(840, Breakpoints.material3),
+        ScreenSize.expanded,
+      );
     });
     test('1199 → expanded', () {
-      expect(Breakpoints.resolve(1199, Breakpoints.material3),
-          ScreenSize.expanded);
+      expect(
+        Breakpoints.resolve(1199, Breakpoints.material3),
+        ScreenSize.expanded,
+      );
     });
     test('1200 → large', () {
       expect(
-          Breakpoints.resolve(1200, Breakpoints.material3), ScreenSize.large);
+        Breakpoints.resolve(1200, Breakpoints.material3),
+        ScreenSize.large,
+      );
     });
     test('1599 → large', () {
       expect(
-          Breakpoints.resolve(1599, Breakpoints.material3), ScreenSize.large);
+        Breakpoints.resolve(1599, Breakpoints.material3),
+        ScreenSize.large,
+      );
     });
     test('1600 → extraLarge', () {
-      expect(Breakpoints.resolve(1600, Breakpoints.material3),
-          ScreenSize.extraLarge);
+      expect(
+        Breakpoints.resolve(1600, Breakpoints.material3),
+        ScreenSize.extraLarge,
+      );
     });
   });
 
   group('Breakpoints.resolve (custom)', () {
     test('works with non-default thresholds', () {
-      expect(Breakpoints.resolve(399, const [400, 800, 1200, 1600]),
-          ScreenSize.compact);
-      expect(Breakpoints.resolve(400, const [400, 800, 1200, 1600]),
-          ScreenSize.medium);
+      expect(
+        Breakpoints.resolve(399, const [400, 800, 1200, 1600]),
+        ScreenSize.compact,
+      );
+      expect(
+        Breakpoints.resolve(400, const [400, 800, 1200, 1600]),
+        ScreenSize.medium,
+      );
     });
 
     test('asserts when breakpoints length != 4', () {
-      expect(() => Breakpoints.resolve(100, const [600, 1200]),
-          throwsA(isA<AssertionError>()));
+      expect(
+        () => Breakpoints.resolve(100, const [600, 1200]),
+        throwsA(isA<AssertionError>()),
+      );
     });
   });
 

@@ -13,9 +13,9 @@ extension StringTextExtensions on String {
   /// 'Hello'.text(fontSize: 16, color: Colors.blue);
   /// ```
   @Deprecated(
-    'Deprecated in v2.0. Prefer theme tokens with chained styling, e.g. '
+    'Deprecated in v1.0. Prefer theme tokens with chained styling, e.g. '
     "'Hello'.bodyLarge(context).fontSize(16).textColor(Colors.blue). "
-    'Will be removed in v3.0.',
+    'Will be removed in v2.0.',
   )
   Text text({
     double fontSize = 14,
@@ -44,9 +44,9 @@ extension StringTextExtensions on String {
   /// 'Custom'.withStyle(TextStyle(color: Colors.red));
   /// ```
   @Deprecated(
-    'Deprecated in v2.0. Use `Text(this, style: ...)` directly, or compose '
+    'Deprecated in v1.0. Use `Text(this, style: ...)` directly, or compose '
     'theme tokens with chained styling (e.g. .bodyLarge(context).fontSize(...)). '
-    'Will be removed in v3.0.',
+    'Will be removed in v2.0.',
   )
   Text withStyle(TextStyle style) => Text(this, style: style);
 

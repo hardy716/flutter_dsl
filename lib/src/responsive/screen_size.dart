@@ -24,8 +24,7 @@ enum ScreenSize {
   bool get isMobile => this == ScreenSize.compact;
 
   /// True for `medium` and `expanded`.
-  bool get isTablet =>
-      this == ScreenSize.medium || this == ScreenSize.expanded;
+  bool get isTablet => this == ScreenSize.medium || this == ScreenSize.expanded;
 
   /// True for `large` and `extraLarge`.
   bool get isDesktop =>

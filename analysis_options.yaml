@@ -1,4 +1,11 @@
 include: package:flutter_lints/flutter.yaml
 
+linter:
+  rules:
+    - prefer_const_constructors
+    - prefer_const_literals_to_create_immutables
+    - use_super_parameters
+    - require_trailing_commas
+
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

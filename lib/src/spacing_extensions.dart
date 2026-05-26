@@ -8,15 +8,15 @@ import 'package:flutter/material.dart';
 /// 'Text'.text().gapBottom(16)
 /// ```
 ///
-/// **Deprecated in v2.0.** These methods implicitly create a [Row] or [Column]
+/// **Deprecated in v1.0.** These methods implicitly create a [Row] or [Column]
 /// around the widget, which collides when chained (e.g. `.gapRight(8).gapBottom(16)`
 /// nests a [Column] inside a [Row]). Prefer
 /// `Iterable<Widget>.row(spacing: ...)` / `.column(spacing: ...)` or the
-/// [Spacing] widget on the parent layout. Will be removed in v3.0.
+/// [Spacing] widget on the parent layout. Will be removed in v2.0.
 @Deprecated(
-  'Deprecated in v2.0. Implicit Row/Column wrapping collides when chained. '
+  'Deprecated in v1.0. Implicit Row/Column wrapping collides when chained. '
   'Use Iterable<Widget>.row(spacing: ...) / .column(spacing: ...) or the '
-  'Spacing widget on the parent layout. Will be removed in v3.0.',
+  'Spacing widget on the parent layout. Will be removed in v2.0.',
 )
 extension SpacingExtensions on Widget {
   /// Adds horizontal spacing to the **right** of the widget using a [Row].

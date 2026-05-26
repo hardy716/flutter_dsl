@@ -12,16 +12,25 @@ import 'screen_size.dart';
 /// nodes.
 extension ResponsiveWidgetExtensions on Widget {
   /// Applies [transform] only on mobile-sized screens. Returns `this` otherwise.
-  Widget onMobile(Widget Function(Widget w) transform) =>
-      _ResponsiveTransform(when: (s) => s.isMobile, transform: transform, child: this);
+  Widget onMobile(Widget Function(Widget w) transform) => _ResponsiveTransform(
+        when: (s) => s.isMobile,
+        transform: transform,
+        child: this,
+      );
 
   /// Applies [transform] only on tablet-sized screens.
-  Widget onTablet(Widget Function(Widget w) transform) =>
-      _ResponsiveTransform(when: (s) => s.isTablet, transform: transform, child: this);
+  Widget onTablet(Widget Function(Widget w) transform) => _ResponsiveTransform(
+        when: (s) => s.isTablet,
+        transform: transform,
+        child: this,
+      );
 
   /// Applies [transform] only on desktop-sized screens.
-  Widget onDesktop(Widget Function(Widget w) transform) =>
-      _ResponsiveTransform(when: (s) => s.isDesktop, transform: transform, child: this);
+  Widget onDesktop(Widget Function(Widget w) transform) => _ResponsiveTransform(
+        when: (s) => s.isDesktop,
+        transform: transform,
+        child: this,
+      );
 
   /// Hides the widget on mobile (returns [SizedBox.shrink]).
   Widget hideOnMobile() =>
