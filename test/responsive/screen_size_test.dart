@@ -71,6 +71,17 @@ void main() {
         throwsA(isA<AssertionError>()),
       );
     });
+
+    test('asserts when breakpoints are not strictly ascending', () {
+      expect(
+        () => Breakpoints.resolve(100, const [1200, 600, 400, 1600]),
+        throwsA(isA<AssertionError>()),
+      );
+      expect(
+        () => Breakpoints.resolve(100, const [600, 600, 1200, 1600]),
+        throwsA(isA<AssertionError>()),
+      );
+    });
   });
 
   group('ScreenSize getters', () {

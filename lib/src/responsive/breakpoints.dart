@@ -20,6 +20,12 @@ class Breakpoints {
       breakpoints.length == 4,
       'breakpoints must contain exactly four ascending thresholds',
     );
+    assert(
+      breakpoints[0] < breakpoints[1] &&
+          breakpoints[1] < breakpoints[2] &&
+          breakpoints[2] < breakpoints[3],
+      'breakpoints must be strictly ascending: $breakpoints',
+    );
     if (width < breakpoints[0]) return ScreenSize.compact;
     if (width < breakpoints[1]) return ScreenSize.medium;
     if (width < breakpoints[2]) return ScreenSize.expanded;
