@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:meta/meta_meta.dart';
 
 /// Declarative marker that announces a widget as part of a design system.
 ///

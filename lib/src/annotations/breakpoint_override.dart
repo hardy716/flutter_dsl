@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:meta/meta_meta.dart';
 
 /// Declarative marker to document that a member uses different breakpoints
 /// from its enclosing [ResponsiveView]. Marker only — no runtime behavior.
