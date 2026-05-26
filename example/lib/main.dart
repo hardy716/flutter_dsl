@@ -9,7 +9,7 @@ class DslExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'flutter_dsl v2 demo',
+      title: 'flutter_dsl v1.0 demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
@@ -33,7 +33,7 @@ class DashboardPage extends ResponsiveStatelessWidget {
   Widget buildResponsive(BuildContext context, ScreenSize size) {
     return Scaffold(
       appBar: AppBar(
-        title: 'flutter_dsl v2 — ${size.name}'.titleLarge(context),
+        title: 'flutter_dsl v1.0 — ${size.name}'.titleLarge(context),
       ),
       body: const _DashboardBody(),
     );
@@ -66,7 +66,7 @@ class _DashboardBodyState extends State<_DashboardBody> {
       child: SingleChildScrollView(
         child: [
           // 4) Compact text styling — design-system token + per-property overrides.
-          'flutter_dsl v2'
+          'flutter_dsl v1.0'
               .headlineMedium(context)
               .fontSize(32)
               .textColor(Theme.of(context).colorScheme.primary),
