@@ -2,6 +2,11 @@ import 'package:flutter/widgets.dart';
 
 /// Compact sizing helpers that wrap the widget in [SizedBox],
 /// [ConstrainedBox], or [AspectRatio].
+///
+/// **Caveat**: [SizedBox] and [Image] expose `width`/`height` as instance
+/// fields, which shadow the corresponding extension methods. To set the
+/// width/height of those widgets, wrap them once (e.g. `Padding`, `Center`)
+/// before calling `.width(...)` / `.height(...)`.
 extension WidgetSizingExtensions on Widget {
   /// Forces both [width] and [height] via [SizedBox].
   Widget size(double width, double height) =>
