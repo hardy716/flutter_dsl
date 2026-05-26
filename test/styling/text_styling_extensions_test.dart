@@ -47,8 +47,8 @@ void main() {
   });
 
   test('.letterSpacing sets letterSpacing and preserves other fields', () {
-    final t = const Text('x', style: TextStyle(fontSize: 14))
-        .letterSpacing(1.5);
+    final t =
+        const Text('x', style: TextStyle(fontSize: 14)).letterSpacing(1.5);
     expect(t.style?.letterSpacing, 1.5);
     expect(t.style?.fontSize, 14);
   });

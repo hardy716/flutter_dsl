@@ -1,55 +1,13 @@
 import 'package:flutter/material.dart';
 
-/// Provides convenient methods to convert a [String] into a [Text] widget with optional styling.
+/// Theme-aware `Text` constructors on [String], pulling styles from the
+/// nearest [Theme]'s `textTheme`. Pair with the chainable per-property
+/// overrides in `text_styling_extensions.dart` for compact overrides.
 ///
-/// This allows writing expressive and declarative Flutter UI code like:
 /// ```dart
-/// 'Hello World'.text(fontSize: 18, fontWeight: FontWeight.bold);
+/// 'Heading'.titleLarge(context).fontSize(28).textColor(Colors.primary);
 /// ```
 extension StringTextExtensions on String {
-  /// Converts the string into a [Text] widget with optional styling parameters.
-  ///
-  /// ```dart
-  /// 'Hello'.text(fontSize: 16, color: Colors.blue);
-  /// ```
-  @Deprecated(
-    'Deprecated in v1.0. Prefer theme tokens with chained styling, e.g. '
-    "'Hello'.bodyLarge(context).fontSize(16).textColor(Colors.blue). "
-    'Will be removed in v2.0.',
-  )
-  Text text({
-    double fontSize = 14,
-    FontWeight fontWeight = FontWeight.normal,
-    Color color = Colors.black,
-    TextAlign textAlign = TextAlign.start,
-    int? maxLines,
-    TextOverflow? overflow,
-  }) {
-    return Text(
-      this,
-      textAlign: textAlign,
-      maxLines: maxLines,
-      overflow: overflow,
-      style: TextStyle(
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        color: color,
-      ),
-    );
-  }
-
-  /// Converts the string into a [Text] widget using a given [TextStyle].
-  ///
-  /// ```dart
-  /// 'Custom'.withStyle(TextStyle(color: Colors.red));
-  /// ```
-  @Deprecated(
-    'Deprecated in v1.0. Use `Text(this, style: ...)` directly, or compose '
-    'theme tokens with chained styling (e.g. .bodyLarge(context).fontSize(...)). '
-    'Will be removed in v2.0.',
-  )
-  Text withStyle(TextStyle style) => Text(this, style: style);
-
   /// Uses the theme's [headlineLarge] text style.
   Text headlineLarge(BuildContext context) => Text(
         this,

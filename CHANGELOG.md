@@ -29,11 +29,15 @@ marked `@Deprecated` and continue to work in v1.x. They will be **removed in v2.
 - `analysis_options.yaml`: added `prefer_const_constructors`, `prefer_const_literals_to_create_immutables`, `use_super_parameters`, `require_trailing_commas`.
 
 ### Deprecated (will be removed in v2.0)
-- `Widget.marginAll / marginSymmetric / marginOnly` — implicit `Container` wrapping. Use `paddingAll` / `paddingSymmetric` / `paddingOnly` or a `Spacing` widget instead.
-- `String.text({fontSize, color, ...})` — bypasses design-system tokens. Use a theme token + `.fontSize/.textColor` chain (e.g. `'Hi'.bodyLarge(context).fontSize(18)`).
-- `String.withStyle(TextStyle)` — bypasses design-system tokens. Use `Text(value, style: ...)` directly.
-- `Widget.gapLeft / gapRight / gapTop / gapBottom` (entire `SpacingExtensions` extension) — implicit `Row`/`Column` wrapping collides when chained. Use `Iterable<Widget>.row(spacing: ...)` / `.column(spacing: ...)` or a `Spacing` widget on the parent.
-- `Widget.ifTrue / ifFalse` — visibility semantics overlap with `.visible(cond)`, transform semantics overlap with the new `.onTrue / .onFalse`.
+All deprecated APIs have been gathered under `lib/src/deprecated/` to visually
+separate them from the active surface. They remain re-exported from the
+package barrel so existing 0.1.x consumer code keeps compiling.
+
+- `Widget.marginAll / marginSymmetric / marginOnly` (`lib/src/deprecated/widget_margin_extensions.dart`) — implicit `Container` wrapping. Use `paddingAll` / `paddingSymmetric` / `paddingOnly` or a `Spacing` widget instead.
+- `String.text({fontSize, color, ...})` (`lib/src/deprecated/string_text_extensions.dart`) — bypasses design-system tokens. Use a theme token + `.fontSize/.textColor` chain (e.g. `'Hi'.bodyLarge(context).fontSize(18)`).
+- `String.withStyle(TextStyle)` (`lib/src/deprecated/string_text_extensions.dart`) — bypasses design-system tokens. Use `Text(value, style: ...)` directly.
+- `Widget.gapLeft / gapRight / gapTop / gapBottom` (entire `SpacingExtensions`, `lib/src/deprecated/spacing_extensions.dart`) — implicit `Row`/`Column` wrapping collides when chained. Use `Iterable<Widget>.row(spacing: ...)` / `.column(spacing: ...)` or a `Spacing` widget on the parent.
+- `Widget.ifTrue / ifFalse` (`lib/src/deprecated/conditional_extensions.dart`) — visibility semantics overlap with `.visible(cond)`, transform semantics overlap with the new `.onTrue / .onFalse`.
 
 ### Migration
 See the migration table in `README.md`.
