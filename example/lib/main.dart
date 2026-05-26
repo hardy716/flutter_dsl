@@ -114,7 +114,7 @@ class _DashboardBodyState extends State<_DashboardBody> {
 
           const Spacing(h: 24),
 
-          // 7) Functional conditional transform (v2 .onTrue).
+          // 7) Functional conditional transform (.onTrue).
           //    Keep visibility logic (.visible) and transform logic (.onTrue) apart.
           'Tap below to toggle highlight transform.'
               .labelLarge(context)

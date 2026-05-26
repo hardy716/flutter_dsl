@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 /// Functional conditional helpers that transform a widget rather than gating
-/// visibility. Complementary to v1 `.visible(cond)`.
+/// visibility. Complementary to [ConditionalExtensions.visible].
 ///
 /// ```dart
 /// CustomCard()
@@ -9,7 +9,7 @@ import 'package:flutter/widgets.dart';
 ///   .onTrue(isHighlighted, (w) => w.backgroundColor(Colors.yellow))
 ///   .onFalse(isCompact, (w) => w.paddingAll(24));
 /// ```
-extension ConditionalV2Extensions on Widget {
+extension FunctionalConditionalExtensions on Widget {
   /// Returns `transform(this)` if [condition] is `true`, else `this`.
   Widget onTrue(bool condition, Widget Function(Widget w) transform) =>
       condition ? transform(this) : this;

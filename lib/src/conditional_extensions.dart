@@ -25,7 +25,7 @@ extension ConditionalExtensions on Widget {
   /// ```
   @Deprecated(
     'Deprecated in v1.0. For visibility use `.visible(condition)`. For '
-    'transforming the widget use the v2 `.onTrue(condition, transform)`. '
+    'transforming the widget use `.onTrue(condition, transform)`. '
     'Will be removed in v2.0.',
   )
   Widget ifTrue(bool condition, {Widget Function()? orElse}) =>
@@ -39,7 +39,7 @@ extension ConditionalExtensions on Widget {
   /// ```
   @Deprecated(
     'Deprecated in v1.0. For visibility use `.visible(!condition)`. For '
-    'transforming the widget use the v2 `.onFalse(condition, transform)`. '
+    'transforming the widget use `.onFalse(condition, transform)`. '
     'Will be removed in v2.0.',
   )
   Widget ifFalse(bool condition, {Widget Function()? orElse}) =>
