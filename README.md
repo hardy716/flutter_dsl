@@ -212,4 +212,4 @@ Issues and PRs are welcome. Please open an issue first for larger changes.
 
 ## 📄 License
 
-MIT License © 2025 HARDY
+MIT License © 2025-2026 HARDY

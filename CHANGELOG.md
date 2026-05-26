@@ -1,4 +1,11 @@
-## [1.0.0] - Major Pivot: responsive layout & design-system DX
+## [1.0.0+1]
+
+### Documentation
+
+- Updated `LICENSE` copyright year from `2025` to `2025-2026`
+- Updated `README.md` footer to match the new license year
+
+## [1.0.0]
 
 This is a **major version bump from 0.1.x**. The package pivots from "declarative
 UI helpers" to an annotation + extension toolkit for crossplatform responsive
