@@ -59,6 +59,28 @@ void main() {
       );
       expect(captured, 16.0);
     });
+
+    testWidgets('returns tablet value on medium when explicitly set',
+        (tester) async {
+      double? captured;
+      await tester.pumpWidget(
+        _wrap(
+          const Size(800, 600),
+          Builder(
+            builder: (ctx) {
+              captured = Responsive.value(
+                ctx,
+                mobile: 8.0,
+                tablet: 16.0,
+                desktop: 24.0,
+              );
+              return const SizedBox.shrink();
+            },
+          ),
+        ),
+      );
+      expect(captured, 16.0);
+    });
   });
 
   group('Responsive.when', () {
@@ -79,6 +101,44 @@ void main() {
       );
       expect(find.byKey(const Key('m')), findsOneWidget);
       expect(find.byKey(const Key('d')), findsNothing);
+    });
+
+    testWidgets('picks tablet widget on medium', (tester) async {
+      await tester.pumpWidget(
+        _wrap(
+          const Size(800, 600),
+          Builder(
+            builder: (ctx) {
+              return Responsive.when(
+                ctx,
+                mobile: const SizedBox(key: Key('m'), width: 1, height: 1),
+                tablet: const SizedBox(key: Key('t'), width: 1, height: 1),
+                desktop: const SizedBox(key: Key('d'), width: 1, height: 1),
+              );
+            },
+          ),
+        ),
+      );
+      expect(find.byKey(const Key('t')), findsOneWidget);
+    });
+
+    testWidgets('picks desktop widget on large', (tester) async {
+      await tester.pumpWidget(
+        _wrap(
+          const Size(1400, 800),
+          Builder(
+            builder: (ctx) {
+              return Responsive.when(
+                ctx,
+                mobile: const SizedBox(key: Key('m'), width: 1, height: 1),
+                tablet: const SizedBox(key: Key('t'), width: 1, height: 1),
+                desktop: const SizedBox(key: Key('d'), width: 1, height: 1),
+              );
+            },
+          ),
+        ),
+      );
+      expect(find.byKey(const Key('d')), findsOneWidget);
     });
   });
 
