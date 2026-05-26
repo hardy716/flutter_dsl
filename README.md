@@ -2,7 +2,7 @@
 
 # flutter_dsl
 
-> Annotation + extension based **responsive layout** and **design-system-friendly DX** toolkit for Flutter. No `build_runner` required.
+- Annotation + extension based **responsive layout** and **design-system-friendly DX** toolkit for Flutter. No `build_runner` required.
 
 `flutter_dsl` lets you write crossplatform, responsive Flutter UI in a single chain — without deeply nested `MediaQuery` / `LayoutBuilder` trees and without code generation. Mark widgets with declarative annotations, layer per-property styling on top of design-system tokens, and branch by screen size with one line.
 

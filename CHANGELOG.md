@@ -1,3 +1,18 @@
+## [1.0.0+2]
+
+### Added
+
+- Example app platform scaffolding for `android`, `ios`, `linux`, `macos`, `web`, `windows` (via `flutter create --platforms=...`) so the demo builds on every supported platform out of the box
+- `.pubignore` at the package root to keep the pub archive lean by excluding `example/`'s native platform directories and template boilerplate (only `example/lib/main.dart` + `example/pubspec.yaml` ship to pub.dev)
+
+### Removed
+
+- `example/test/widget_test.dart` — leftover `flutter create` counter template referencing the non-existent `MyApp`. The example's behavior is exercised by the package's own test suite
+
+### Documentation
+
+- README intro line restyled from blockquote (`>`) to bullet (`-`) for tighter rendering on pub.dev
+
 ## [1.0.0+1]
 
 ### Documentation

@@ -1,0 +1,47 @@
+# Used by `dart pub publish`. When this file exists it replaces `.gitignore`
+# for the publish archive, so this is a SUPERSET of the rules in `.gitignore`
+# plus the pub-only excludes for the example app's platform scaffolding and
+# template boilerplate (only example/lib/main.dart + example/pubspec.yaml
+# need to ship to pub.dev — the rest is for building locally from GitHub).
+
+# === Mirrors .gitignore (Flutter/Dart standard ignores) ===
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Flutter/Dart/Pub
+**/doc/api/
+doc/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+
+# === pub-only excludes ===
+# Example app's native platform scaffolding and boilerplate. The pub.dev
+# "Example" tab only surfaces example/lib/main.dart; platform builds happen
+# from the GitHub source.
+example/android/
+example/ios/
+example/linux/
+example/macos/
+example/web/
+example/windows/
+example/build/
+example/.metadata
+example/.gitignore
+example/README.md
+example/analysis_options.yaml
