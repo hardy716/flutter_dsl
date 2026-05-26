@@ -15,3 +15,8 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: ^4.0.0
+
+flutter:
+  # Bundles the Material Icons font so `Icons.*` glyphs render instead of
+  # tofu boxes ([x]) in the showcase.
+  uses-material-design: true

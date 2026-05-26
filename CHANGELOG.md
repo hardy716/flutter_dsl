@@ -1,3 +1,9 @@
+## [1.0.0+4]
+
+### Fixed
+
+- Example app `Icons.*` glyphs no longer render as `[x]` tofu boxes. Root cause: `example/pubspec.yaml` had no `flutter:` section, so the Material Icons font was never bundled. Added `flutter: { uses-material-design: true }`.
+
 ## [1.0.0+3]
 
 ### Changed
