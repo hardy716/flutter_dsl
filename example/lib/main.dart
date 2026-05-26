@@ -1,101 +1,169 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dsl/flutter_dsl.dart';
 
-void main() {
-  runApp(const DSLExampleApp());
-}
+void main() => runApp(const DslExampleApp());
 
-class DSLExampleApp extends StatelessWidget {
-  const DSLExampleApp({super.key});
+class DslExampleApp extends StatelessWidget {
+  const DslExampleApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'flutter_dsl Example',
+      title: 'flutter_dsl v2 demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
       ),
-      home: const DSLExampleHomePage(),
+      // 1) Wrap the entire app in ResponsiveScope so .onMobile / Responsive.value
+      //    pick up the right ScreenSize everywhere.
+      builder: (context, child) => ResponsiveScope(child: child!),
+      home: const DashboardPage(),
     );
   }
 }
 
-class DSLExampleHomePage extends StatefulWidget {
-  const DSLExampleHomePage({super.key});
+// 2) @ResponsiveView is a marker. The companion base class
+//    ResponsiveStatelessWidget actually wraps the subtree in a
+//    ResponsiveScope and forwards the resolved ScreenSize to buildResponsive.
+@ResponsiveView()
+class DashboardPage extends ResponsiveStatelessWidget {
+  const DashboardPage({super.key});
 
   @override
-  State<DSLExampleHomePage> createState() => _DSLExampleHomePageState();
+  Widget buildResponsive(BuildContext context, ScreenSize size) {
+    return Scaffold(
+      appBar: AppBar(
+        title: 'flutter_dsl v2 — ${size.name}'.titleLarge(context),
+      ),
+      body: const _DashboardBody(),
+    );
+  }
 }
 
-class _DSLExampleHomePageState extends State<DSLExampleHomePage> {
-  bool isLoggedIn = false;
-  bool hasError = false;
+class _DashboardBody extends StatefulWidget {
+  const _DashboardBody();
+
+  @override
+  State<_DashboardBody> createState() => _DashboardBodyState();
+}
+
+class _DashboardBodyState extends State<_DashboardBody> {
+  bool highlight = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('flutter_dsl Demo')),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Title
-            'Welcome to flutter_dsl'
-                .headlineMedium(context)
-                .paddingAll(16)
-                .gapBottom(16),
+    // 3) Responsive.value picks a value per screen size with zero wrapper
+    //    widgets (no tree depth penalty).
+    final pagePadding = Responsive.value(
+      context,
+      mobile: 16.0,
+      tablet: 24.0,
+      desktop: 40.0,
+    );
 
-            // Logged in message
-            '✅ You are logged in'
-                .text(fontSize: 16, color: Colors.green)
-                .ifTrue(isLoggedIn)
-                .gapBottom(8),
+    return Padding(
+      padding: EdgeInsets.all(pagePadding),
+      child: SingleChildScrollView(
+        child: [
+          // 4) Compact text styling — design-system token + per-property overrides.
+          'flutter_dsl v2'
+              .headlineMedium(context)
+              .fontSize(32)
+              .textColor(Theme.of(context).colorScheme.primary),
 
-            // Error message
-            '⚠️ An error occurred'
-                .text(fontSize: 16, color: Colors.red)
-                .ifTrue(hasError)
-                .gapBottom(16),
+          const Spacing(h: 8),
+          'Responsive layout + design-system DX without build_runner.'
+              .bodyLarge(context)
+              .lineHeight(1.5),
 
-            // Toggle login button
-            _dslButton(
-              text: isLoggedIn ? 'Logout' : 'Login',
-              color: Colors.blue,
-              onTap: () {
-                setState(() {
-                  isLoggedIn = !isLoggedIn;
-                  hasError = false;
-                });
-              },
-            ).gapBottom(12),
+          const Spacing(h: 24),
 
-            // Trigger error button
-            _dslButton(
-              text: hasError ? 'Clear Error' : 'Trigger Error',
-              color: Colors.red,
-              onTap: () {
-                setState(() {
-                  hasError = !hasError;
-                });
-              },
-            ),
-          ],
-        ),
+          // 5) ResponsiveBuilder — alternative to chaining when you need
+          //    completely different subtrees per size.
+          ResponsiveBuilder(
+            mobile: (c) => const _StatCard(label: 'Mobile layout'),
+            tablet: (c) => [
+              const _StatCard(label: 'Visits', value: '1.2k').expanded(),
+              const _StatCard(label: 'Signups', value: '83').expanded(),
+            ].row(spacing: 16),
+            desktop: (c) => [
+              const _StatCard(label: 'Visits', value: '1.2k').expanded(),
+              const _StatCard(label: 'Signups', value: '83').expanded(),
+              const _StatCard(label: 'Revenue', value: '\$2.4k').expanded(),
+              const _StatCard(label: 'Errors', value: '0').expanded(),
+            ].row(spacing: 16),
+          ),
+
+          const Spacing(h: 24),
+
+          // 6) Chainable responsive transforms via .onMobile / .onDesktop and
+          //    .hideOnMobile.
+          'Hide me on mobile, scale me up on desktop.'
+              .bodyMedium(context)
+              .paddingAll(16)
+              .backgroundColor(Theme.of(context).colorScheme.surfaceContainerHigh)
+              .rounded(12)
+              .onDesktop((w) => w.padding(
+                    const EdgeInsets.symmetric(horizontal: 48, vertical: 24),
+                  ))
+              .hideOnMobile(),
+
+          const Spacing(h: 24),
+
+          // 7) Functional conditional transform (v2 .onTrue).
+          //    Keep visibility logic (.visible) and transform logic (.onTrue) apart.
+          'Tap below to toggle highlight transform.'
+              .labelLarge(context)
+              .paddingAll(12)
+              .onTrue(
+                highlight,
+                (w) => w.backgroundColor(
+                  Theme.of(context).colorScheme.tertiaryContainer,
+                ),
+              )
+              .rounded(8)
+              .onTap(() => setState(() => highlight = !highlight)),
+
+          const Spacing(h: 24),
+
+          // 8) Value-dispatched WhenWidget.
+          WhenWidget<bool>(
+            value: highlight,
+            cases: {
+              true: () => 'Highlighted!'
+                  .titleMedium(context)
+                  .textColor(Colors.green),
+              false: () =>
+                  'Not highlighted'.titleMedium(context).italic(),
+            },
+          ),
+        ].column(crossAxisAlignment: CrossAxisAlignment.start),
       ),
     );
   }
+}
 
-  Widget _dslButton({
-    required String text,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return text
-        .text(color: Colors.white)
-        .paddingAll(12)
-        .backgroundColor(color)
-        .rounded(8)
-        .onTap(onTap);
+// Small helper so .onDesktop has something to chain onto in (6).
+extension on Widget {
+  Widget padding(EdgeInsetsGeometry value) =>
+      Padding(padding: value, child: this);
+}
+
+class _StatCard extends StatelessWidget {
+  final String label;
+  final String? value;
+  const _StatCard({required this.label, this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return [
+      label.labelMedium(context),
+      const Spacing(h: 4),
+      (value ?? '—').headlineSmall(context).fontWeight(FontWeight.bold),
+    ]
+        .column(crossAxisAlignment: CrossAxisAlignment.start)
+        .paddingAll(16)
+        .backgroundColor(Theme.of(context).colorScheme.surfaceContainerLow)
+        .rounded(12);
   }
 }

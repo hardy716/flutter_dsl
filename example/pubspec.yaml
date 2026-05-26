@@ -1,0 +1,17 @@
+name: flutter_dsl_example
+description: Example app demonstrating flutter_dsl v2 features.
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_dsl:
+    path: ..
+
+dev_dependencies:
+  flutter_lints: ^4.0.0
