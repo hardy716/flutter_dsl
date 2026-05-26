@@ -23,6 +23,11 @@ extension ConditionalExtensions on Widget {
   /// ```dart
   /// 'Success'.text().ifTrue(isLoggedIn, orElse: () => 'Login required'.text());
   /// ```
+  @Deprecated(
+    'Deprecated in v2.0. For visibility use `.visible(condition)`. For '
+    'transforming the widget use the v2 `.onTrue(condition, transform)`. '
+    'Will be removed in v3.0.',
+  )
   Widget ifTrue(bool condition, {Widget Function()? orElse}) =>
       condition ? this : (orElse?.call() ?? const SizedBox.shrink());
 
@@ -32,6 +37,11 @@ extension ConditionalExtensions on Widget {
   /// ```dart
   /// 'Offline mode'.text().ifFalse(isConnected);
   /// ```
+  @Deprecated(
+    'Deprecated in v2.0. For visibility use `.visible(!condition)`. For '
+    'transforming the widget use the v2 `.onFalse(condition, transform)`. '
+    'Will be removed in v3.0.',
+  )
   Widget ifFalse(bool condition, {Widget Function()? orElse}) =>
       !condition ? this : (orElse?.call() ?? const SizedBox.shrink());
 }
