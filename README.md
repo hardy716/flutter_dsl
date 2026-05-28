@@ -14,6 +14,14 @@
 
 > As the window narrows, the same single chain reflows across `compact → medium → expanded → large` — layout, padding, and styling all adapt automatically. Explore every Core API live in [`example/lib/main.dart`](example/lib/main.dart).
 
+The other showcase tabs at a glance:
+
+| Styling | Text |
+| :---: | :---: |
+| ![Styling tab](https://raw.githubusercontent.com/hardy716/flutter_dsl/master/doc/tab_styling.png) | ![Text tab](https://raw.githubusercontent.com/hardy716/flutter_dsl/master/doc/tab_text.png) |
+| **Conditional** | **Layout** |
+| ![Conditional tab](https://raw.githubusercontent.com/hardy716/flutter_dsl/master/doc/tab_conditional.png) | ![Layout tab](https://raw.githubusercontent.com/hardy716/flutter_dsl/master/doc/tab_layout.png) |
+
 ---
 
 ## ✨ What's new in v1.0
