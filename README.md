@@ -8,6 +8,14 @@
 
 ---
 
+## 🎬 Demo
+
+![flutter_dsl responsive layout demo](https://raw.githubusercontent.com/hardy716/flutter_dsl/master/doc/demo.gif)
+
+> As the window narrows, the same single chain reflows across `compact → medium → expanded → large` — layout, padding, and styling all adapt automatically. Explore every Core API live in [`example/lib/main.dart`](example/lib/main.dart).
+
+---
+
 ## ✨ What's new in v1.0
 
 v1.0 is a **major pivot** from the 0.1.x line. The previous "declarative UI helpers" overlap with what Flutter now ships natively, so v1.0 focuses on the layer above: responsive layout and design-system DX.
