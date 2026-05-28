@@ -1,6 +1,6 @@
 name: flutter_dsl
 description: "Annotation + extension based responsive layout and design-system-friendly DX toolkit for Flutter. No build_runner required."
-version: 1.0.0+4
+version: 1.0.0+5
 homepage: https://github.com/hardy716/flutter_dsl
 repository: https://github.com/hardy716/flutter_dsl
 issue_tracker: https://github.com/hardy716/flutter_dsl/issues

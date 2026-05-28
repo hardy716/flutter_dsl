@@ -1,3 +1,9 @@
+## [1.0.0+5]
+
+### Documentation
+
+- Added a **Demo** section to `README.md`: an animated GIF of the example app's responsive reflow (`compact → medium → expanded → large`) plus a 2×2 screenshot grid of the **Styling** / **Text** / **Conditional** / **Layout** tabs. Assets live in `doc/` (excluded from the pub archive via `.pubignore`) and are referenced by raw GitHub URLs so they render on pub.dev.
+
 ## [1.0.0+4]
 
 ### Fixed
