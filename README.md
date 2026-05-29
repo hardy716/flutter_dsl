@@ -29,7 +29,7 @@ The other showcase tabs at a glance:
 v1.0 is a **major pivot** from the 0.1.x line. The previous "declarative UI helpers" overlap with what Flutter now ships natively, so v1.0 focuses on the layer above: responsive layout and design-system DX.
 
 - **Responsive primitives**: `ResponsiveScope`, `ResponsiveBuilder`, `Responsive.value(...)`, `.onMobile/.onTablet/.onDesktop/.hideOn*/.responsive` chainable transforms.
-- **Activated annotations**: `@ResponsiveView`, `@DesignSystemComponent`, `@BreakpointOverride` — markers that pair with a base class (`ResponsiveStatelessWidget`) so the breakpoints you declare actually take effect.
+- **Marker annotations**: `@ResponsiveView`, `@DesignSystemComponent`, `@BreakpointOverride` — documentation markers that pair with a base class (`ResponsiveStatelessWidget`) for responsive resolution; breakpoints are configured once on `ResponsiveScope`.
 - **Material 3 windowing**: `ScreenSize { compact, medium, expanded, large, extraLarge }` plus convenience `isMobile / isTablet / isDesktop`.
 - **Compact styling chains**: `.fontSize/.fontWeight/.textColor/.italic/.underline` on `Text`, `.width/.height/.square/.constrained/.aspectRatio` on `Widget`.
 - **Functional conditionals**: `.onTrue/.onFalse/.when` for transforms (separate from `.visible` for visibility), plus `WhenWidget<T>` for value-dispatched widgets.
@@ -39,11 +39,27 @@ v1.0 is a **major pivot** from the 0.1.x line. The previous "declarative UI help
 
 ---
 
+## 🤔 Why flutter_dsl?
+
+`flutter_dsl` is an **internal DSL for Flutter** focused on everyday developer experience: it bundles **responsive layout**, **design tokens**, and **styling chains** into one cohesive, **codegen-free** package aligned to **Material 3 windowing**. No `build_runner`, no `dart:mirrors` — just const annotations and a runtime `InheritedWidget`.
+
+| | flutter_dsl | styled_widget / velocity_x | responsive_framework / sizer |
+|---|:---:|:---:|:---:|
+| Styling chains | ✅ | ✅ | — |
+| Responsive, Material 3 buckets | ✅ `ScreenSize` enum | — | ✅ (own model) |
+| Design tokens (spacing/radius + theme text) | ✅ | — | — |
+| Code generation required | none | none | none |
+| One cohesive toolkit | ✅ | styling only | responsive only |
+
+If you want a *single* dependency covering responsive + tokens + styling with an exhaustive Material 3 `ScreenSize` enum and zero codegen, that is the niche flutter_dsl fills. If you only need deep styling helpers, `styled_widget` / `velocity_x` go further there; if you only need responsive routing, `responsive_framework` is more mature. flutter_dsl deliberately optimizes for *cohesion and DX*, not maximal coverage of any single axis.
+
+---
+
 ## 📦 Installation
 
 ```yaml
 dependencies:
-  flutter_dsl: ^1.0.0
+  flutter_dsl: ^1.1.0
 ```
 
 ```dart
@@ -54,19 +70,21 @@ import 'package:flutter_dsl/flutter_dsl.dart';
 
 ## 🚀 Quick Start
 
-Wrap your app once in a `ResponsiveScope` (typically via `MaterialApp.builder`):
+Wrap your app once in a `ResponsiveScope` (typically via `MaterialApp.builder`). This is the **single source of truth** for breakpoints — set them here, once:
 
 ```dart
 MaterialApp(
-  builder: (context, child) => ResponsiveScope(child: child!),
+  // Omit `breakpoints` to use the Material 3 defaults [600, 840, 1200, 1600].
+  builder: (context, child) =>
+      ResponsiveScope(breakpoints: const [600, 840, 1200, 1600], child: child!),
   home: const DashboardPage(),
 );
 ```
 
-Then write responsive widgets with the base class:
+Then write responsive widgets with the base class. Mark them with `@ResponsiveView()` for readability/tooling — the marker has no runtime effect on its own:
 
 ```dart
-@ResponsiveView(breakpoints: [600, 840, 1200, 1600])
+@ResponsiveView()
 class DashboardPage extends ResponsiveStatelessWidget {
   const DashboardPage({super.key});
 
@@ -137,12 +155,14 @@ widget.responsive(mobile: ..., tablet: ..., desktop: ...)
 ### Annotations (markers)
 
 ```dart
-@ResponsiveView(breakpoints: [400, 800, 1200, 1600])
+@ResponsiveView()
 @DesignSystemComponent(name: 'PrimaryButton', category: 'actions')
 @BreakpointOverride([200, 500, 900, 1400])
 ```
 
-> **Annotations are markers, not magic.** Dart cannot read annotation metadata at runtime without `dart:mirrors` (unavailable in Flutter) or `build_runner` (not used here). For an annotation's `breakpoints` to actually take effect, the annotated class should also `extends ResponsiveStatelessWidget` and pass the same list to `super(breakpoints: ...)`. The base class then wraps the subtree in `ResponsiveScope`. Keeping the two in sync is your responsibility.
+> **Annotations are markers, not magic.** Dart cannot read annotation metadata at runtime without `dart:mirrors` (unavailable in Flutter) or `build_runner` (not used here), so they have no runtime effect on their own — they document intent for readers, IDE search, and inventory tooling. Pair `@ResponsiveView()` with `extends ResponsiveStatelessWidget` so the subtree resolves a `ScreenSize`, and configure breakpoints **once** on the app-level `ResponsiveScope` (one source of truth — no per-widget duplication to keep in sync).
+>
+> The `breakpoints` parameter on `@ResponsiveView(...)` / `super(breakpoints: ...)` is **deprecated** (it duplicates the scope config and is removed in 2.0). To make `@DesignSystemComponent` enumerable at runtime, pair it with `DesignSystemCatalog.register(...)`.
 
 ### Styling chains
 
@@ -154,7 +174,48 @@ widget.responsive(mobile: ..., tablet: ..., desktop: ...)
 myWidget.width(200).height(120).constrained(maxWidth: 400);
 ```
 
+Each styling wrapper adds one widget node. When you need several decorations at once, prefer **`.box(...)`** — it collapses padding, background, border, corner radius, and shadow into a single `Container`:
+
+```dart
+// 3 wrapper nodes (Padding → ColoredBox → ClipRRect):
+content.paddingAll(12).backgroundColor(surface).rounded(8);
+
+// 1 node, same result:
+content.box(padding: const EdgeInsets.all(12), color: surface, radius: 8);
+```
+
 > Caveat: `.width(...)` / `.height(...)` are shadowed by `SizedBox` and `Image` because those types expose `width`/`height` as instance fields. Wrap them once (e.g. in `Padding`, `Center`) before chaining.
+
+### Design tokens
+
+Pair the theme-driven text tokens with a `space` / `radius` scale so spacing and corner radius come from one source instead of magic numbers. Publish a `DesignTokensScope` once near the app root (it falls back to Material-aligned defaults when absent):
+
+```dart
+MaterialApp(
+  builder: (context, child) => DesignTokensScope(
+    tokens: const DesignTokens(),                 // or customize the scales
+    child: ResponsiveScope(child: child!),
+  ),
+);
+
+// Anywhere below:
+final t = DesignTokensScope.of(context);
+'Card'.bodyLarge(context).box(
+  padding: EdgeInsets.all(t.space.md),            // 16
+  color: Theme.of(context).colorScheme.surface,
+  radius: t.radius.lg,                            // 16
+);
+```
+
+To turn `@DesignSystemComponent` into an in-app component gallery, register matching entries (no codegen):
+
+```dart
+DesignSystemCatalog.register(
+  name: 'PrimaryButton', category: 'actions',
+  builder: (_) => const PrimaryButton(),
+);
+for (final e in DesignSystemCatalog.entries) GalleryTile(entry: e);
+```
 
 ### Functional conditionals (v1.0)
 
@@ -215,8 +276,8 @@ Try resizing your window to see the responsive transforms kick in.
 
 ## ⚠️ Trade-offs
 
-- **Annotations are markers, not magic** (see above). For runtime effect, pair them with `ResponsiveStatelessWidget`.
-- **Chainable responsive transforms add one wrapper widget each.** For hot paths where tree depth matters, use the `Responsive.value` / `Responsive.when` static helpers — they take a `BuildContext` and add no nodes.
+- **Annotations are markers, not magic** (see above). Pair them with `ResponsiveStatelessWidget`; breakpoints live on the app-level `ResponsiveScope` (one source of truth — nothing to keep in sync).
+- **Each styling/transform wrapper adds one widget node.** A long chain trades deep nesting for deep chaining, which is harder to read in the widget inspector and to break on. Keep chains short; for multiple decorations use **`.box(...)`** (one `Container`); for hot paths use the `Responsive.value` / `Responsive.when` static helpers — they take a `BuildContext` and add no nodes. Text styling (`.fontSize`, `.textColor`, …) and conditionals (`.onTrue`, `.when`, …) do **not** add nodes — they merge/return in place.
 - **`Text.rich` is not supported** by the text styling chains (`.fontSize`, `.textColor`, …). Construct a `TextSpan` with the style you want instead.
 - **0.1.x → 1.0.0** is a major version bump that signals the direction pivot. If you depend on `^0.1.x`, update the constraint and read the migration table.
 

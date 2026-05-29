@@ -349,18 +349,19 @@ class _ResponsiveTab extends StatelessWidget {
         const _SectionHeader(
           title: 'Marker annotations',
           description:
-              'Compile-time markers. Pair @ResponsiveView with the base class to make the breakpoints actually take effect.',
+              'Documentation markers (no runtime effect). Pair @ResponsiveView with the base class for resolution; set breakpoints once on the app-level ResponsiveScope.',
         ),
         _DemoCard(
-          code: '@ResponsiveView(breakpoints: [600, 840, 1200, 1600])\n'
+          code: '@ResponsiveView()\n'
               "@DesignSystemComponent(name: 'ShowcasePage')\n"
               'class ShowcasePage extends ResponsiveStatelessWidget {\n'
               '  …\n'
               '}',
           child:
-              ('This very page uses `ResponsiveStatelessWidget` as its base — '
-                      'so the `breakpoints` declared by `@ResponsiveView` are '
-                      'wrapped automatically. A `ResponsiveStatefulWidget` + '
+              ('This very page uses `ResponsiveStatelessWidget` as its base, so '
+                      'it resolves the current `ScreenSize` from the app-level '
+                      '`ResponsiveScope` (the single source of truth for '
+                      'breakpoints). A `ResponsiveStatefulWidget` + '
                       '`ResponsiveState<T>` pair is also available for stateful '
                       'screens.')
                   .bodyMedium(context),
