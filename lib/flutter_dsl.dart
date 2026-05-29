@@ -35,6 +35,7 @@ export 'src/responsive/responsive_helpers.dart';
 // Styling extensions.
 export 'src/styling/widget_sizing_extensions.dart';
 export 'src/styling/text_styling_extensions.dart';
+export 'src/styling/widget_decoration_extensions.dart';
 
 // Functional conditional extensions.
 export 'src/conditional/functional_conditional_extensions.dart';
