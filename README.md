@@ -36,6 +36,15 @@ The other showcase tabs at a glance:
 
 ---
 
+## ✨ What's new in v1.1
+
+- **`.box(...)`** — apply padding + color/gradient + border + corner radius + shadow in a **single** `Container`, instead of chaining a wrapper per property.
+- **Design tokens**: `DesignTokensScope` + `DesignTokens` with a `SpacingScale` and `RadiusScale`, composing with the theme text tokens and the styling chains.
+- **`DesignSystemCatalog`** — an opt-in, codegen-free runtime registry that pairs with `@DesignSystemComponent` to build in-app component galleries.
+- **Fixed**: `ResponsiveStatelessWidget` / `ResponsiveStatefulWidget` no longer override an ambient `ResponsiveScope`; they resolve from the app-level scope (single source of truth). The per-widget `breakpoints` parameter is **deprecated** (removed in 2.0) — existing code keeps working with a deprecation hint.
+
+---
+
 ## ✨ What's new in v1.0
 
 v1.0 is a **major pivot** from the 0.1.x line. The previous "declarative UI helpers" overlap with what Flutter now ships natively, so v1.0 focuses on the layer above: responsive layout and design-system DX.
