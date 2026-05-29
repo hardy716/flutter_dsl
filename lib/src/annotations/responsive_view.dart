@@ -3,11 +3,11 @@ import 'package:meta/meta_meta.dart';
 
 /// Declarative marker that announces a widget as a responsive layout host.
 ///
-/// This annotation is a **marker, not magic**. Dart cannot read annotation
-/// metadata at runtime without `dart:mirrors` (unavailable in Flutter) or
-/// `build_runner` (not used by this package), so applying `@ResponsiveView`
-/// alone does not change behavior — it documents intent for readers, IDE
-/// search, and inventory tooling.
+/// This annotation documents intent — for readers, IDE search, and inventory
+/// tooling — and pairs with a runtime counterpart rather than acting on its
+/// own. By design the package uses no `dart:mirrors` or `build_runner`, so the
+/// marker carries no runtime effect by itself; pair it with the base class
+/// below to resolve a [ScreenSize].
 ///
 /// Pair it with `extends ResponsiveStatelessWidget` (or
 /// `ResponsiveStatefulWidget`) so the subtree resolves a [ScreenSize]. Configure

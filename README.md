@@ -165,9 +165,9 @@ widget.responsive(mobile: ..., tablet: ..., desktop: ...)
 @BreakpointOverride([200, 500, 900, 1400])
 ```
 
-> **Annotations are markers, not magic.** Dart cannot read annotation metadata at runtime without `dart:mirrors` (unavailable in Flutter) or `build_runner` (not used here), so they have no runtime effect on their own — they document intent for readers, IDE search, and inventory tooling. Pair `@ResponsiveView()` with `extends ResponsiveStatelessWidget` so the subtree resolves a `ScreenSize`, and configure breakpoints **once** on the app-level `ResponsiveScope` (one source of truth — no per-widget duplication to keep in sync).
+> **How the markers work.** `@ResponsiveView`, `@DesignSystemComponent`, and `@BreakpointOverride` document intent — for readers, IDE search, and inventory tooling — and pair with a runtime counterpart: `@ResponsiveView()` with `extends ResponsiveStatelessWidget` to resolve a `ScreenSize`, and `@DesignSystemComponent` with `DesignSystemCatalog.register(...)` to enumerate components at runtime. There's no `build_runner` and no `dart:mirrors` by design, so configuration stays explicit — set breakpoints **once** on the app-level `ResponsiveScope` (one source of truth).
 >
-> The `breakpoints` parameter on `@ResponsiveView(...)` / `super(breakpoints: ...)` is **deprecated** (it duplicates the scope config and is removed in 2.0). To make `@DesignSystemComponent` enumerable at runtime, pair it with `DesignSystemCatalog.register(...)`.
+> The `breakpoints` parameter on `@ResponsiveView(...)` / `super(breakpoints: ...)` is **deprecated** (it duplicates the scope config and is removed in 2.0).
 
 ### Styling chains
 
@@ -281,7 +281,7 @@ Try resizing your window to see the responsive transforms kick in.
 
 ## ⚠️ Trade-offs
 
-- **Annotations are markers, not magic** (see above). Pair them with `ResponsiveStatelessWidget`; breakpoints live on the app-level `ResponsiveScope` (one source of truth — nothing to keep in sync).
+- **Annotations document intent; runtime behavior comes from their counterparts** (see above) — pair `@ResponsiveView` with `ResponsiveStatelessWidget`, and `@DesignSystemComponent` with `DesignSystemCatalog`. Breakpoints live on the app-level `ResponsiveScope` (one source of truth). No `build_runner` / `dart:mirrors`.
 - **Each styling/transform wrapper adds one widget node.** A long chain trades deep nesting for deep chaining, which is harder to read in the widget inspector and to break on. Keep chains short; for multiple decorations use **`.box(...)`** (one `Container`); for hot paths use the `Responsive.value` / `Responsive.when` static helpers — they take a `BuildContext` and add no nodes. Text styling (`.fontSize`, `.textColor`, …) and conditionals (`.onTrue`, `.when`, …) do **not** add nodes — they merge/return in place.
 - **`Text.rich` is not supported** by the text styling chains (`.fontSize`, `.textColor`, …). Construct a `TextSpan` with the style you want instead.
 - **0.1.x → 1.0.0** is a major version bump that signals the direction pivot. If you depend on `^0.1.x`, update the constraint and read the migration table.
