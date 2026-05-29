@@ -137,7 +137,7 @@ Padding(
 | `ResponsiveScope.of(context)` | Reads the resolved `ScreenSize`. Falls back to `MediaQuery` + Material 3 breakpoints when no scope is present, so it never crashes. |
 | `ResponsiveScope.maybeOf(context)` | Like `of` but returns `null` when no scope is present. |
 | `ResponsiveScope.dataOf(context)` | Returns `ResponsiveData(size, width, breakpoints)`. |
-| `ResponsiveStatelessWidget` / `ResponsiveStatefulWidget` | Base classes; implement `buildResponsive(context, size)` and the scope wrap happens automatically. |
+| `ResponsiveStatelessWidget` / `ResponsiveStatefulWidget` | Base classes; implement `buildResponsive(context, size)`. They resolve the `ScreenSize` from the ambient `ResponsiveScope` (the app-level single source of truth). |
 | `ResponsiveBuilder({mobile, tablet?, desktop?})` | Picks a builder per screen size, with `desktop → tablet → mobile` fallback. |
 | `Responsive.value<T>(context, {mobile, tablet?, desktop?})` | Picks a value (any `T`) per size. Zero wrapper widgets. |
 | `Responsive.when(context, {mobile, tablet?, desktop?})` | Picks a widget per size. Zero wrapper widgets. |

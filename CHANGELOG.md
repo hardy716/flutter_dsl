@@ -8,7 +8,11 @@
 
 ### Deprecated
 
-- The `breakpoints` parameter on `@ResponsiveView(...)` and on the `ResponsiveStatelessWidget` / `ResponsiveStatefulWidget` constructors. Configure breakpoints **once** on the app-level `ResponsiveScope` (single source of truth). Existing code keeps compiling and running (deprecation warning only); the parameter is removed in 2.0, along with the related fix to stop the base class from overriding an ambient `ResponsiveScope`.
+- The `breakpoints` parameter on `@ResponsiveView(...)` and on the `ResponsiveStatelessWidget` / `ResponsiveStatefulWidget` constructors. Configure breakpoints **once** on the app-level `ResponsiveScope` (single source of truth). Existing code keeps compiling and running (deprecation warning only); the parameter is removed in 2.0.
+
+### Fixed
+
+- `ResponsiveStatelessWidget` / `ResponsiveStatefulWidget` no longer **override** an ambient `ResponsiveScope` with the Material 3 defaults. When no (deprecated) per-widget `breakpoints` are passed, they now resolve the `ScreenSize` from the nearest app-level `ResponsiveScope` (falling back to `MediaQuery` + Material 3 only when none exists), so app-level custom breakpoints correctly propagate into responsive widgets. Passing per-widget `breakpoints` preserves the previous wrapping behavior.
 
 ### Documentation
 

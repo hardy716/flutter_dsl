@@ -45,9 +45,9 @@ abstract class ResponsiveStatelessWidget extends StatelessWidget {
   const ResponsiveStatelessWidget({
     super.key,
     @Deprecated(
-      'Set breakpoints once on the app-level ResponsiveScope instead of per '
-      'widget. This parameter is a no-op duplicate of the scope config and '
-      'will be removed in 2.0.',
+      'Configure breakpoints once on the app-level ResponsiveScope (single '
+      'source of truth). Passing them here is a deprecated per-widget override '
+      'and will be removed in 2.0.',
     )
     this.breakpoints = Breakpoints.material3,
   });
@@ -57,6 +57,12 @@ abstract class ResponsiveStatelessWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Default: resolve from the ambient ResponsiveScope (single source of
+    // truth) without overriding it. Only the deprecated per-widget override
+    // still wraps the subtree in its own scope.
+    if (identical(breakpoints, Breakpoints.material3)) {
+      return buildResponsive(context, ResponsiveScope.of(context));
+    }
     return ResponsiveScope(
       breakpoints: breakpoints,
       child: Builder(
@@ -79,17 +85,18 @@ abstract class ResponsiveStatefulWidget extends StatefulWidget {
   const ResponsiveStatefulWidget({
     super.key,
     @Deprecated(
-      'Set breakpoints once on the app-level ResponsiveScope instead of per '
-      'widget. This parameter is a no-op duplicate of the scope config and '
-      'will be removed in 2.0.',
+      'Configure breakpoints once on the app-level ResponsiveScope (single '
+      'source of truth). Passing them here is a deprecated per-widget override '
+      'and will be removed in 2.0.',
     )
     this.breakpoints = Breakpoints.material3,
   });
 }
 
 /// Base [State] for [ResponsiveStatefulWidget] subclasses. Implement
-/// [buildResponsive] instead of `build`; the wrapping in [ResponsiveScope]
-/// is handled here.
+/// [buildResponsive] instead of `build`; it resolves the current [ScreenSize]
+/// from the ambient [ResponsiveScope] (falling back to [MediaQuery] +
+/// Material 3 breakpoints when none is present).
 abstract class ResponsiveState<T extends ResponsiveStatefulWidget>
     extends State<T> {
   /// Build the subtree given the current [ScreenSize].
@@ -97,6 +104,9 @@ abstract class ResponsiveState<T extends ResponsiveStatefulWidget>
 
   @override
   Widget build(BuildContext context) {
+    if (identical(widget.breakpoints, Breakpoints.material3)) {
+      return buildResponsive(context, ResponsiveScope.of(context));
+    }
     return ResponsiveScope(
       breakpoints: widget.breakpoints,
       child: Builder(

@@ -38,7 +38,7 @@ Widget _wrap(Size size, Widget child) => MediaQuery(
     );
 
 void main() {
-  testWidgets('ResponsiveStatelessWidget auto-wraps ResponsiveScope',
+  testWidgets('resolves ScreenSize, falling back to material3 when no scope',
       (tester) async {
     ScreenSize? observed;
     await tester.pumpWidget(
@@ -48,6 +48,23 @@ void main() {
       ),
     );
     expect(observed, ScreenSize.expanded);
+  });
+
+  testWidgets('inherits the ambient ResponsiveScope instead of overriding it',
+      (tester) async {
+    ScreenSize? observed;
+    await tester.pumpWidget(
+      _wrap(
+        const Size(500, 800),
+        ResponsiveScope(
+          breakpoints: const [400, 800, 1200, 1600],
+          child: _Capture(onSize: (s) => observed = s),
+        ),
+      ),
+    );
+    // With the ambient [400, 800, ...] scope, 500px resolves to medium.
+    // The previous (buggy) behavior created its own material3 scope => compact.
+    expect(observed, ScreenSize.medium);
   });
 
   testWidgets('ResponsiveStatelessWidget honors custom breakpoints',
@@ -65,7 +82,7 @@ void main() {
     expect(observed, ScreenSize.medium);
   });
 
-  testWidgets('ResponsiveStatefulWidget auto-wraps ResponsiveScope',
+  testWidgets('ResponsiveStatefulWidget resolves ScreenSize from scope/fallback',
       (tester) async {
     ScreenSize? observed;
     await tester.pumpWidget(
