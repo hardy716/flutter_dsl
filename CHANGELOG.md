@@ -16,8 +16,9 @@
 
 ### Documentation
 
-- New "Why flutter_dsl?" comparison section positioning the package as a cohesive, codegen-free **internal DSL** (responsive + design tokens + styling, aligned to Material 3 windowing).
-- Quick Start and annotation docs updated to the single-source `ResponsiveScope` pattern; `.box` and tree-depth/debugging guidance added to the Trade-offs section.
+- New top-level "Why flutter_dsl?" section positioning the package as a cohesive, codegen-free **internal DSL** (responsive + design tokens + styling, aligned to Material 3 windowing), plus a "What's new in v1.1" summary.
+- Quick Start and annotation docs moved to the single-source `ResponsiveScope` pattern; added a **Design tokens** section, `.box` usage, and tree-depth/debugging guidance in Trade-offs.
+- The example app now showcases `.box`, `DesignTokensScope`, and `DesignSystemCatalog`; the demo GIF and screenshots were refreshed.
 
 ## [1.0.0+5]
 
