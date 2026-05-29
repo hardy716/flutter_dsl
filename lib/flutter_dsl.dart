@@ -42,3 +42,4 @@ export 'src/conditional/functional_conditional_extensions.dart';
 
 // Design system (tokens + component catalog).
 export 'src/design_system/design_tokens.dart';
+export 'src/design_system/design_system_catalog.dart';
