@@ -1,6 +1,6 @@
 /// flutter_dsl: annotation + extension based responsive layout and
 /// design-system-friendly DX toolkit for Flutter.
-library flutter_dsl;
+library;
 
 // Legacy 0.1.x extensions (kept methods only — deprecated portions live in
 // `src/deprecated/` and are re-exported below).
