@@ -8,6 +8,18 @@
 
 ---
 
+## 🤔 Why flutter_dsl?
+
+An **internal DSL for Flutter** that optimizes for everyday developer experience: responsive layout, design tokens, and styling chains in **one cohesive, codegen-free package** aligned to **Material 3 windowing**.
+
+- **One toolkit, not five.** Responsive branching, a Material 3 `ScreenSize` enum, design tokens (spacing/radius + theme text), and chainable styling — all from a single import, designed to work together.
+- **No `build_runner`, no `dart:mirrors`.** Everything runs on const annotations and a runtime `InheritedWidget`. Nothing to generate, no pipeline to maintain.
+- **Material 3 windowing, first-class.** `ScreenSize { compact, medium, expanded, large, extraLarge }` is an exhaustive enum — the compiler won't let you forget a bucket.
+- **Single source of truth.** Configure breakpoints and design tokens once at the app root; every widget below reads them.
+- **Shallow trees by default.** `.box(...)` collapses several decorations into one node, and `Responsive.value(...)` adds zero wrappers on hot paths.
+
+---
+
 ## 🎬 Demo
 
 ![flutter_dsl responsive layout demo](https://raw.githubusercontent.com/hardy716/flutter_dsl/master/doc/demo.gif)
@@ -36,22 +48,6 @@ v1.0 is a **major pivot** from the 0.1.x line. The previous "declarative UI help
 - **No `build_runner`, no `dart:mirrors`** — everything runs through const annotations + a runtime `InheritedWidget`.
 
 0.1.x APIs that conflict with the v1.0 direction are **deprecated** (still work, marked with `@Deprecated`) and will be removed in v2.0. See the migration table below.
-
----
-
-## 🤔 Why flutter_dsl?
-
-`flutter_dsl` is an **internal DSL for Flutter** focused on everyday developer experience: it bundles **responsive layout**, **design tokens**, and **styling chains** into one cohesive, **codegen-free** package aligned to **Material 3 windowing**. No `build_runner`, no `dart:mirrors` — just const annotations and a runtime `InheritedWidget`.
-
-| | flutter_dsl | styled_widget / velocity_x | responsive_framework / sizer |
-|---|:---:|:---:|:---:|
-| Styling chains | ✅ | ✅ | — |
-| Responsive, Material 3 buckets | ✅ `ScreenSize` enum | — | ✅ (own model) |
-| Design tokens (spacing/radius + theme text) | ✅ | — | — |
-| Code generation required | none | none | none |
-| One cohesive toolkit | ✅ | styling only | responsive only |
-
-If you want a *single* dependency covering responsive + tokens + styling with an exhaustive Material 3 `ScreenSize` enum and zero codegen, that is the niche flutter_dsl fills. If you only need deep styling helpers, `styled_widget` / `velocity_x` go further there; if you only need responsive routing, `responsive_framework` is more mature. flutter_dsl deliberately optimizes for *cohesion and DX*, not maximal coverage of any single axis.
 
 ---
 

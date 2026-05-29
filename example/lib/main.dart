@@ -8,7 +8,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dsl/flutter_dsl.dart';
 
-void main() => runApp(const FlutterDslShowcase());
+void main() {
+  _registerShowcaseComponents();
+  runApp(const FlutterDslShowcase());
+}
+
+// Pairs with `@DesignSystemComponent`: registering components makes them
+// enumerable at runtime (e.g. to render an in-app gallery) — no codegen.
+void _registerShowcaseComponents() {
+  DesignSystemCatalog.register(
+    name: 'Badge',
+    category: 'feedback',
+    builder: (context) => 'Badge'
+        .labelSmall(context)
+        .fontWeight(FontWeight.bold)
+        .textColor(Colors.white)
+        .box(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          color: Colors.indigo,
+          radius: 999,
+        ),
+  );
+  DesignSystemCatalog.register(
+    name: 'Tag',
+    category: 'feedback',
+    builder: (context) => 'Tag'.labelSmall(context).box(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          color: Colors.teal.shade100,
+          radius: 8,
+          border: Border.all(color: Colors.teal),
+        ),
+  );
+}
 
 class FlutterDslShowcase extends StatelessWidget {
   const FlutterDslShowcase({super.key});
@@ -22,18 +53,21 @@ class FlutterDslShowcase extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
       ),
-      // Wrap once so every descendant can call Responsive.* / .onMobile /
-      // .hideOnDesktop / .responsive / etc.
-      builder: (context, child) => ResponsiveScope(child: child!),
+      // Wrap once near the root: design tokens + the responsive scope (the
+      // single source of truth for breakpoints) for every descendant.
+      builder: (context, child) => DesignTokensScope(
+        tokens: const DesignTokens(),
+        child: ResponsiveScope(child: child!),
+      ),
       home: const ShowcasePage(),
     );
   }
 }
 
-/// `@ResponsiveView` is a declarative marker; pairing it with
-/// [ResponsiveStatelessWidget] makes the declared `breakpoints` take effect —
-/// the base class auto-wraps the subtree in a [ResponsiveScope] and forwards
-/// the current [ScreenSize] to [buildResponsive].
+/// `@ResponsiveView` is a documentation-only marker; pairing it with
+/// [ResponsiveStatelessWidget] makes the subtree resolve the current
+/// [ScreenSize] from the ambient [ResponsiveScope] (configured once at the app
+/// level) and forward it to [buildResponsive].
 @ResponsiveView()
 @DesignSystemComponent(name: 'ShowcasePage', category: 'screens')
 class ShowcasePage extends ResponsiveStatelessWidget {
@@ -194,6 +228,36 @@ class _ResponsiveTab extends StatelessWidget {
                         '/ extraLarge.')
                     .bodySmall(context),
           ),
+        ),
+        const _SectionHeader(
+          title: 'v1.1.0 · design tokens + .box + responsive',
+          description:
+              'A single .box() driven by DesignTokensScope and Responsive.value — resize to watch the token-based padding adapt.',
+        ),
+        Builder(
+          builder: (context) {
+            final t = DesignTokensScope.of(context);
+            final pad = Responsive.value(
+              context,
+              mobile: t.space.sm,
+              tablet: t.space.lg,
+              desktop: t.space.xl,
+            );
+            return _DemoCard(
+              code: 'final t = DesignTokensScope.of(context);\n'
+                  'content.box(\n'
+                  '  padding: EdgeInsets.all(Responsive.value(context,\n'
+                  '    mobile: t.space.sm, tablet: t.space.lg, desktop: t.space.xl)),\n'
+                  '  color: surface, radius: t.radius.lg)',
+              child: 'token-driven padding = $pad (resize me)'
+                  .bodyMedium(context)
+                  .box(
+                    padding: EdgeInsets.all(pad),
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    radius: t.radius.lg,
+                  ),
+            );
+          },
         ),
         const _SectionHeader(
           title: 'ResponsiveBuilder',
@@ -401,6 +465,53 @@ class _StylingTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
+        const _SectionHeader(
+          title: '.box(...) — many decorations, one node',
+          description:
+              'Collapses padding + color + radius + border + shadow into a single Container instead of a wrapper per property.',
+        ),
+        _DemoCard(
+          code: 'content.box(padding: EdgeInsets.all(12), color: surface,\n'
+              '  radius: 12, border: Border.all(color: outline))',
+          child: [
+            'one .box() node'.bodyMedium(context).box(
+                  padding: const EdgeInsets.all(12),
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  radius: 12,
+                  border:
+                      Border.all(color: Theme.of(context).colorScheme.outline),
+                ),
+            'with shadow'.bodyMedium(context).box(
+              padding: const EdgeInsets.all(12),
+              color: Theme.of(context).colorScheme.surface,
+              radius: 12,
+              boxShadow: const [
+                BoxShadow(
+                    blurRadius: 8,
+                    color: Colors.black26,
+                    offset: Offset(0, 2)),
+              ],
+            ),
+          ].row(spacing: 8, mainAxisAlignment: MainAxisAlignment.start),
+        ),
+        const _SectionHeader(
+          title: 'DesignSystemCatalog — component inventory',
+          description:
+              'Opt-in runtime registry that pairs with @DesignSystemComponent to build in-app galleries (no codegen).',
+        ),
+        _DemoCard(
+          code: 'DesignSystemCatalog.register(name: ..., builder: ...);\n'
+              'for (final e in DesignSystemCatalog.entries) Gallery(e);',
+          child: [
+            '${DesignSystemCatalog.entries.length} components registered'
+                .bodySmall(context)
+                .textColor(Theme.of(context).colorScheme.onSurfaceVariant),
+            [
+              for (final e in DesignSystemCatalog.entries)
+                Builder(builder: e.builder),
+            ].row(spacing: 8, mainAxisAlignment: MainAxisAlignment.start),
+          ].column(spacing: 8, crossAxisAlignment: CrossAxisAlignment.start),
+        ),
         const _SectionHeader(
           title: '.paddingAll / .paddingSymmetric / .paddingOnly',
           description: 'Wrap in Padding without nesting.',
