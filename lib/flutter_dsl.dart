@@ -39,3 +39,6 @@ export 'src/styling/widget_decoration_extensions.dart';
 
 // Functional conditional extensions.
 export 'src/conditional/functional_conditional_extensions.dart';
+
+// Design system (tokens + component catalog).
+export 'src/design_system/design_tokens.dart';
