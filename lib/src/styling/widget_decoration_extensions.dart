@@ -35,8 +35,8 @@ extension WidgetDecorationExtensions on Widget {
     List<BoxShadow>? boxShadow,
     Clip clipBehavior = Clip.antiAlias,
   }) {
-    final resolvedRadius = borderRadius ??
-        (radius != null ? BorderRadius.circular(radius) : null);
+    final resolvedRadius =
+        borderRadius ?? (radius != null ? BorderRadius.circular(radius) : null);
     final hasDecoration = color != null ||
         gradient != null ||
         border != null ||

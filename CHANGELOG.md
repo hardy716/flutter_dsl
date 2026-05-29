@@ -1,3 +1,20 @@
+## [1.1.0]
+
+### Added
+
+- `.box({padding, color, gradient, border, radius / borderRadius, boxShadow, clipBehavior})` — collapses multiple decorations into a **single** `Container`, replacing deep wrapper chains like `.paddingAll().backgroundColor().rounded()` and keeping the widget tree shallow.
+- **Design tokens**: `DesignTokens` + `DesignTokensScope` (resilient `of` / `maybeOf` lookup) carrying a `SpacingScale` (`4 / 8 / 16 / 24 / 32 / 48`) and `RadiusScale` (`4 / 8 / 16 / 999`). Composes with the theme text tokens and styling chains so spacing/radius come from one source instead of magic numbers.
+- `DesignSystemCatalog` — an opt-in, codegen-free runtime registry (`register` / `entries` / `byCategory`) that pairs with `@DesignSystemComponent` to build in-app component galleries / storybooks.
+
+### Deprecated
+
+- The `breakpoints` parameter on `@ResponsiveView(...)` and on the `ResponsiveStatelessWidget` / `ResponsiveStatefulWidget` constructors. Configure breakpoints **once** on the app-level `ResponsiveScope` (single source of truth). Existing code keeps compiling and running (deprecation warning only); the parameter is removed in 2.0, along with the related fix to stop the base class from overriding an ambient `ResponsiveScope`.
+
+### Documentation
+
+- New "Why flutter_dsl?" comparison section positioning the package as a cohesive, codegen-free **internal DSL** (responsive + design tokens + styling, aligned to Material 3 windowing).
+- Quick Start and annotation docs updated to the single-source `ResponsiveScope` pattern; `.box` and tree-depth/debugging guidance added to the Trade-offs section.
+
 ## [1.0.0+5]
 
 ### Documentation

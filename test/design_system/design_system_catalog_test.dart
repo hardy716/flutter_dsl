@@ -8,9 +8,15 @@ void main() {
 
   test('register adds entries in order', () {
     DesignSystemCatalog.register(
-        name: 'A', category: 'actions', builder: (_) => const SizedBox());
+      name: 'A',
+      category: 'actions',
+      builder: (_) => const SizedBox(),
+    );
     DesignSystemCatalog.register(
-        name: 'B', category: 'feedback', builder: (_) => const SizedBox());
+      name: 'B',
+      category: 'feedback',
+      builder: (_) => const SizedBox(),
+    );
 
     expect(DesignSystemCatalog.entries.map((e) => e.name), ['A', 'B']);
   });
@@ -23,7 +29,10 @@ void main() {
 
   test('byCategory groups entries and defaults to uncategorized', () {
     DesignSystemCatalog.register(
-        name: 'A', category: 'actions', builder: (_) => const SizedBox());
+      name: 'A',
+      category: 'actions',
+      builder: (_) => const SizedBox(),
+    );
     DesignSystemCatalog.register(name: 'B', builder: (_) => const SizedBox());
 
     final grouped = DesignSystemCatalog.byCategory;
