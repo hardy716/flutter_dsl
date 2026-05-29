@@ -8,6 +8,8 @@ void main() {
   });
 
   test('ResponsiveView accepts custom breakpoints', () {
+    // Deprecated param retained for back-compat until 2.0.
+    // ignore: deprecated_member_use_from_same_package
     const r = ResponsiveView(breakpoints: [400, 800, 1200, 1600]);
     expect(r.breakpoints, const [400, 800, 1200, 1600]);
   });

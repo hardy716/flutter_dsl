@@ -4,6 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 
 class _Capture extends ResponsiveStatelessWidget {
   final void Function(ScreenSize) onSize;
+  // Exercises the deprecated per-widget `breakpoints` param to verify it still
+  // works (back-compat). The recommended path is an app-level ResponsiveScope.
+  // ignore: deprecated_member_use_from_same_package
   const _Capture({required this.onSize, super.breakpoints});
 
   @override

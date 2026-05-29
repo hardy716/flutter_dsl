@@ -8,15 +8,25 @@ import 'screen_size.dart';
 /// marker into actual runtime behavior.
 ///
 /// Subclasses implement [buildResponsive] instead of `build`. The base class
-/// automatically wraps the result in a [ResponsiveScope] so that the configured
-/// [breakpoints] take effect for the subtree, and forwards the current
-/// [ScreenSize] to the builder.
+/// resolves the current [ScreenSize] from the nearest [ResponsiveScope] and
+/// forwards it to the builder.
+///
+/// Configure breakpoints **once** at the app level via a single
+/// [ResponsiveScope] (typically in `MaterialApp.builder`); every responsive
+/// widget below it then shares the same configuration. Mark the view with
+/// `@ResponsiveView()` for readability/tooling — the marker has no runtime
+/// effect on its own.
 ///
 /// ```dart
-/// @ResponsiveView(breakpoints: [400, 800, 1200, 1600])
+/// MaterialApp(
+///   builder: (context, child) =>
+///       ResponsiveScope(breakpoints: const [400, 800, 1200, 1600], child: child!),
+///   home: const Dashboard(),
+/// );
+///
+/// @ResponsiveView()
 /// class Dashboard extends ResponsiveStatelessWidget {
-///   const Dashboard({super.key})
-///     : super(breakpoints: const [400, 800, 1200, 1600]);
+///   const Dashboard({super.key});
 ///
 ///   @override
 ///   Widget buildResponsive(BuildContext context, ScreenSize size) {
@@ -24,17 +34,21 @@ import 'screen_size.dart';
 ///   }
 /// }
 /// ```
-///
-/// The `breakpoints` you pass to the annotation and to `super(...)` should
-/// match — keeping them in sync is the developer's responsibility.
 abstract class ResponsiveStatelessWidget extends StatelessWidget {
   /// Breakpoints used to wrap this subtree in a [ResponsiveScope].
   final List<int> breakpoints;
 
-  /// Creates a responsive stateless widget. Subclasses typically pass the same
-  /// list as the matching `@ResponsiveView` annotation.
+  /// Creates a responsive stateless widget.
+  ///
+  /// Prefer configuring breakpoints once on the app-level [ResponsiveScope]
+  /// instead of per widget.
   const ResponsiveStatelessWidget({
     super.key,
+    @Deprecated(
+      'Set breakpoints once on the app-level ResponsiveScope instead of per '
+      'widget. This parameter is a no-op duplicate of the scope config and '
+      'will be removed in 2.0.',
+    )
     this.breakpoints = Breakpoints.material3,
   });
 
@@ -59,8 +73,16 @@ abstract class ResponsiveStatefulWidget extends StatefulWidget {
   final List<int> breakpoints;
 
   /// Creates a responsive stateful widget.
+  ///
+  /// Prefer configuring breakpoints once on the app-level [ResponsiveScope]
+  /// instead of per widget.
   const ResponsiveStatefulWidget({
     super.key,
+    @Deprecated(
+      'Set breakpoints once on the app-level ResponsiveScope instead of per '
+      'widget. This parameter is a no-op duplicate of the scope config and '
+      'will be removed in 2.0.',
+    )
     this.breakpoints = Breakpoints.material3,
   });
 }
